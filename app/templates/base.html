@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Our Project{% endblock %}</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="project-name">
+            Our Project
+        </div>
+
+        <nav class="nav-menu">
+
+            <a href="{{ url_for('home.home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('task.add_task') }}">
+                Add a Task
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- Each page puts its own content here -->
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>

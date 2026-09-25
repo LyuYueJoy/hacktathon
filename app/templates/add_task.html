@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add a Task
+{% endblock %}
+
+
+{% block content %}
+
+<h1>Add a Task</h1>
+
+<form>
+
+    <label>Task name</label>
+    <input
+        type="text"
+        name="task_name"
+        placeholder="Enter task name"
+    >
+
+    <br><br>
+
+    <label>Description</label>
+    <textarea
+        name="description"
+        placeholder="Enter task description"
+    ></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Add Task
+    </button>
+
+</form>
+
+{% endblock %}
