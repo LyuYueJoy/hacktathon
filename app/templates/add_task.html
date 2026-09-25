@@ -1,37 +1,29 @@
 {% extends "base.html" %}
-
-{% block title %}
-Add a Task
-{% endblock %}
-
-
 {% block content %}
-
-<h1>Add a Task</h1>
-
-<form>
-
-    <label>Task name</label>
-    <input
-        type="text"
-        name="task_name"
-        placeholder="Enter task name"
-    >
-
-    <br><br>
-
-    <label>Description</label>
-    <textarea
-        name="description"
-        placeholder="Enter task description"
-    ></textarea>
-
-    <br><br>
-
-    <button type="submit">
-        Add Task
-    </button>
-
+<h2>Add Task</h2>
+<form method="POST" action="{{ url_for('task.add_task') }}">
+    <p>
+        <label for="name">Name</label><br>
+        <input type="text" id="name" name="name" required>
+    </p>
+    <p>
+        <label for="description">Description</label><br>
+        <textarea id="description" name="description" required></textarea>
+    </p>
+    <p>
+        <label for="location">Location / Ward</label><br>
+        <input type="text" id="location" name="location" required>
+    </p>
+    <p>
+        <label for="notes">Additional Notes</label><br>
+        <textarea id="notes" name="notes"></textarea>
+    </p>
+    <p>
+        <label for="urgency">Urgency</label><br>
+        <input type="range" id="urgency" name="urgency" min="1" max="10" value="5"
+               oninput="document.getElementById('urgencyVal').innerText = this.value">
+        <span id="urgencyVal">5</span>
+    </p>
+    <button type="submit">Submit</button>
 </form>
-
 {% endblock %}
