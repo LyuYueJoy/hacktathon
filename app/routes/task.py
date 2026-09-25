@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request
 
 task_bp = Blueprint("task", __name__)
 
@@ -17,6 +17,6 @@ def add_task():
         }
         tasks.append(new_task)
         print(tasks)  # check your terminal to confirm it worked
-        return redirect(url_for("task.add_task"))
+        return render_template("task_added.html")  # <-- changed: show confirmation page instead of redirecting
 
     return render_template("add_task.html")

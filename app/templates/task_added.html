@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="overlay" style="
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+">
+    <div style="
+        background: white;
+        padding: 30px 40px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        max-width: 350px;
+    ">
+        <h2>Task Added!</h2>
+        <p>Would you like to add another task?</p>
+
+        <div id="btnRow">
+            <button id="yesBtn" style="margin: 10px;">Yes</button>
+            <button id="noBtn" style="margin: 10px;">No</button>
+        </div>
+
+        <p id="redirectMsg" style="display:none; font-weight: bold;"></p>
+    </div>
+</div>
+
+<script>
+document.getElementById("yesBtn").addEventListener("click", function () {
+    window.location.href = "{{ url_for('task.add_task') }}";
+});
+
+document.getElementById("noBtn").addEventListener("click", function () {
+    document.getElementById("btnRow").style.display = "none";
+
+    let seconds = 3;
+    const msg = document.getElementById("redirectMsg");
+    msg.style.display = "block";
+    msg.innerText = "Returning to homepage in " + seconds + " seconds...";
+
+    const countdown = setInterval(function () {
+        seconds--;
+        msg.innerText = "Returning to homepage in " + seconds + " seconds...";
+        if (seconds <= 0) {
+            clearInterval(countdown);
+            window.location.href = "/";
+        }
+    }, 1000);
+});
+</script>
+{% endblock %}
