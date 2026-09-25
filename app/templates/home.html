@@ -20,7 +20,7 @@ Home
 
         <div class="stat-card">
             <p>Total Tasks</p>
-            <h2>{{ total_tasks }}</h2>
+            <h2>10</h2>
         </div>
 
         <div class="stat-card">
@@ -52,23 +52,40 @@ Home
 
         <div class="task-list">
 
-            {% for task in tasks %}
             <div class="task-card">
 
                 <div class="task-info">
-                    <h3>{{ task.name }}</h3>
-                    <p>{{ task.description }}</p>
+                    <h3>Finish homepage</h3>
+                    <p>
+                        Complete the homepage layout
+                        for the hackathon project.
+                    </p>
                 </div>
 
                 <div class="task-meta">
-                    <span>{{ task.location }}</span>
-                    <span class="priority">{{ task.urgency }}</span>
+                    <span>10:00 AM</span>
+                    <span class="priority high">High</span>
                 </div>
 
             </div>
-            {% else %}
-            <p>No tasks yet.</p>
-            {% endfor %}
+
+
+            <div class="task-card">
+
+                <div class="task-info">
+                    <h3>Team meeting</h3>
+                    <p>
+                        Discuss the next features
+                        with the team.
+                    </p>
+                </div>
+
+                <div class="task-meta">
+                    <span>2:00 PM</span>
+                    <span class="priority medium">Medium</span>
+                </div>
+
+            </div>
 
         </div>
 

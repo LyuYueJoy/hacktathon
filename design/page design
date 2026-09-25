@@ -1,0 +1,420 @@
+STYLEKIT_STYLE_REFERENCE
+style_name: Dashboard Layout
+style_slug: dashboard-layout
+style_source: /styles/dashboard-layout
+
+# Hard Prompt
+
+## When To Use
+Use this when you want AI to generate code with strict style consistency. It is the safest default for production UI.
+
+## How To Use
+- Copy the full prompt into ChatGPT, Claude, Cursor, or another coding assistant.
+- Append the concrete product/page requirement after the prompt.
+- After generation, check the forbidden rules and interaction states before accepting the output.
+
+Strictly follow the style rules below and maintain consistency. No style drift allowed.
+
+## Requirements
+
+- Prioritize style consistency first, then creative extension.
+- When conflicts arise, treat prohibitions as the highest priority.
+- Self-check before output: verify colors, typography, spacing, and interactions still match this style.
+
+## Style Rules
+
+You are a Dashboard Layout expert. All generated code must strictly follow these constraints:
+
+## Layout Structure
+
+- Left: Dark side navigation bar w-64 bg-gray-900
+- Top: White toolbar (search, notifications, user)
+- Main: KPI cards + chart panels + data tables
+
+## KPI Cards
+
+- Use grid grid-cols-4 layout
+- Each card includes: label, value, trend change
+- Growth uses green text-green-500
+- Decline uses red text-red-500
+- Stable uses yellow text-yellow-500
+
+## Chart Area
+
+- Main chart takes 2/3 width col-span-2
+- Secondary chart takes 1/3 width
+- Use aspect-ratio to maintain proportions
+
+## Side Navigation
+
+- Dark background bg-gray-900
+- Current page highlighted bg-white/10
+- Icon + text menu items
+- User info at bottom
+
+## Responsive
+
+Large screens: Sidebar + 4-column KPI + charts
+Medium screens: Sidebar + 2-column KPI
+Small screens: Hidden sidebar + 1-column KPI
+
+## Self-check
+
+1. Side navigation is dark and fixed
+2. KPI card data is clear
+3. Chart area proportions are appropriate
+4. Status color coding is correct
+5. Responsive adaptation is complete
+
+## Animation & Interaction Rules
+
+- Crisp SaaS Feel: All micro-interactions should be fast and clear, preferring `duration-150` + `ease-out`.
+- KPI Focus: KPI cards may slightly lift on hover, using `group-hover` to micro-scale or recolor the core number for visual focus.
+- Hover Hinting: Data cards, data rows, and actionable panels must provide clear background feedback on hover (e.g., `hover:bg-gray-50`).
+- Action Precision: Button clicks should have clear press feedback (e.g., `active:scale-[0.97]`), with visible focus ring for a11y.
+
+---
+
+# Dashboard Layout Design System
+
+> A data-driven dashboard layout featuring side navigation, top toolbar, multi-module data panels, and chart areas -- ideal for admin systems, data analytics platforms, and monitoring dashboards.
+
+## Design Philosophy
+
+Dashboard Layout is a layout solution centered on data presentation, enabling users to efficiently monitor and analyze multi-dimensional data through side navigation, multi-module data panels, and a flexible grid system.
+
+Core principles:
+- Data first: All layout decisions serve efficient data presentation
+- Modular: Each data panel is an independent module that can be flexibly combined
+- Density control: Striking a balance between information density and readability
+- Real-time: Layout supports real-time data updates and refreshes
+
+---
+
+## Token Dictionary (exact class mapping)
+
+### Border
+```
+Width: border
+Color: border-gray-200
+Radius: rounded-xl
+```
+
+### Shadow
+```
+sm: shadow-sm
+md: shadow-sm
+lg: shadow-md
+hover: hover:shadow-md
+focus: focus:shadow-sm
+```
+
+### Interaction
+```
+Hover translate: (none)
+Hover scale: (none)
+Hover opacity: hover:opacity-90
+Transition: transition-colors duration-200
+Active: active:scale-95
+```
+
+### Typefaces
+```
+Heading: font-semibold tracking-tight
+Body: font-sans
+Mono: font-mono
+```
+
+### Type scale
+```
+Hero: text-2xl md:text-3xl
+H1: text-xl md:text-2xl
+H2: text-lg md:text-xl
+H3: text-sm md:text-base
+Body: text-sm
+Small: text-xs
+```
+
+### Spacing
+```
+Section: py-4 md:py-6
+Container: px-4 md:px-6
+Card: p-4 md:p-6
+Gap sm: gap-2 md:gap-3
+Gap md: gap-3 md:gap-4
+Gap lg: gap-4 md:gap-6
+```
+
+### Color roles
+```
+Background primary: bg-[#f9fafb]
+Background secondary: bg-white
+Background accent: bg-[#6366f1], bg-[#10b981], bg-[#f59e0b], bg-[#ef4444]
+Text primary: text-[#111827]
+Text secondary: text-gray-500
+Text muted: text-gray-400
+Button primary: bg-[#6366f1] text-white
+Button secondary: bg-gray-100 text-gray-700
+```
+
+---
+
+## [FORBIDDEN]
+
+These classes are banned in this style. Check for them before returning code:
+
+### Banned classes
+- `rounded-none`
+- `shadow-2xl`
+- `font-black`
+- `font-extrabold`
+- `text-5xl`
+- `text-6xl`
+- `text-7xl`
+- `text-8xl`
+- `rounded-3xl`
+- `rounded-full`
+
+### Banned patterns
+- matches `^rounded-(?:none|3xl|full)`
+- matches `^shadow-2xl`
+- matches `^text-[5-8]xl`
+
+### Why they are banned
+- `rounded-none`: Dashboard Layout uses rounded-xl for a modern data panel aesthetic
+- `shadow-2xl`: Dashboard Layout uses minimal shadows to keep data focused
+- `text-6xl`: Dashboard Layout uses compact typography for data-dense screens
+- `rounded-full`: Dashboard Layout uses consistent rounded-xl panels, not pill shapes
+
+> WARNING: if your code contains any of the above, replace it before shipping.
+
+---
+
+## [REQUIRED]
+
+### Every button must include
+```
+rounded-lg
+font-medium text-sm
+transition-colors
+```
+
+### Every card must include
+```
+bg-white
+rounded-xl
+shadow-sm
+border border-gray-100
+```
+
+### Every input must include
+```
+bg-gray-50
+border border-gray-200
+rounded-lg
+text-sm
+focus:outline-none
+focus:ring-2 focus:ring-[#6366f1]/20 focus:border-[#6366f1]
+transition-all
+```
+
+---
+
+## [COMPARE] Dashboard Layout wrong vs right
+
+The wrong examples below stand for generic library defaults that were never adapted to this style. Do not read them as visual suggestions.
+
+### Button
+
+[WRONG] **Wrong** (generic component library default, do not copy):
+```html
+<button class="{GENERIC_LIBRARY_BUTTON_DEFAULT}">
+  Click me
+</button>
+```
+
+[CORRECT] **Right** (uses this style's tokens):
+```html
+<button class="rounded-lg font-medium text-sm transition-colors bg-[#6366f1] text-white">
+  Click me
+</button>
+```
+
+### Card
+
+[WRONG] **Wrong** (generic card, not adapted to this style):
+```html
+<div class="{GENERIC_LIBRARY_CARD_DEFAULT}">
+  <h3>{TITLE}</h3>
+</div>
+```
+
+[CORRECT] **Right** (uses this style's card tokens):
+```html
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-6">
+  <h3 class="font-semibold tracking-tight text-sm md:text-base">{TITLE}</h3>
+</div>
+```
+
+### Input
+
+[WRONG] **Wrong** (generic input, not adapted to this style):
+```html
+<input class="{GENERIC_LIBRARY_INPUT_DEFAULT}" />
+```
+
+[CORRECT] **Right** (uses this style's input tokens):
+```html
+<input class="bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#6366f1]/20 focus:border-[#6366f1] transition-all" placeholder="{PLACEHOLDER}" />
+```
+
+---
+
+## [TEMPLATES] Dashboard Layout page skeletons
+
+These skeletons use this style's tokens only. Replace `{PLACEHOLDER}` values, but keep every token in place:
+
+### Navigation
+```html
+<nav class="bg-[#f9fafb] text-[#111827] border border-gray-200 px-4 md:px-6">
+  <div class="flex items-center justify-between max-w-6xl mx-auto gap-3 md:gap-4">
+    <a href="/" class="font-semibold tracking-tight text-sm md:text-base">
+      {LOGO_TEXT}
+    </a>
+    <div class="flex gap-3 md:gap-4 font-sans text-xs">
+      {NAV_LINKS}
+    </div>
+  </div>
+</nav>
+```
+
+### Hero section
+```html
+<section class="bg-[#6366f1] text-[#111827] py-4 md:py-6 px-4 md:px-6">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="font-semibold tracking-tight text-2xl md:text-3xl">
+      {HEADLINE}
+    </h1>
+    <p class="font-sans text-sm max-w-xl">
+      {SUBHEADLINE}
+    </p>
+    <button class="rounded-lg font-medium text-sm transition-colors bg-[#6366f1] text-white">
+      {CTA_TEXT}
+    </button>
+  </div>
+</section>
+```
+
+### Card grid
+```html
+<section class="bg-[#f9fafb] text-[#111827] py-4 md:py-6 px-4 md:px-6">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-semibold tracking-tight text-lg md:text-xl">{SECTION_TITLE}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+      <!-- Card template - repeat for each card -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-6">
+        <h3 class="font-semibold tracking-tight text-sm md:text-base">{CARD_TITLE}</h3>
+        <p class="font-sans text-sm text-gray-400">{CARD_DESCRIPTION}</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Form input
+```html
+<input class="bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#6366f1]/20 focus:border-[#6366f1] transition-all" placeholder="{PLACEHOLDER}" />
+```
+
+### Footer
+```html
+<footer class="bg-white text-gray-500 py-4 md:py-6 px-4 md:px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+      <div>
+        <span class="font-semibold tracking-tight text-sm md:text-base">{LOGO_TEXT}</span>
+        <p class="font-sans text-xs">{TAGLINE}</p>
+      </div>
+      <div>
+        <h4 class="font-semibold tracking-tight text-sm md:text-base">{COLUMN_TITLE}</h4>
+        <ul class="font-sans text-xs">
+          {FOOTER_LINKS}
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+```
+
+---
+
+## [CHECKLIST] Dashboard Layout post-generation self check
+
+**Before returning code, verify every token and rule below. Fix any violation before delivering:**
+
+### Token check
+- [ ] Button includes: `rounded-lg font-medium text-sm transition-colors`
+- [ ] Card includes: `bg-white rounded-xl shadow-sm border border-gray-100`
+- [ ] Input includes: `bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#6366f1]/20 focus:border-[#6366f1] transition-all`
+
+### Forbidden check
+- [ ] Not using `rounded-none`
+- [ ] Not using `shadow-2xl`
+- [ ] Not using `font-black`
+- [ ] Not using `font-extrabold`
+- [ ] Not using `text-5xl`
+- [ ] Not using `text-6xl`
+- [ ] Not using `text-7xl`
+- [ ] Not using `text-8xl`
+
+### Style rule check
+- [ ] Use dark side navigation bar bg-gray-900 w-64
+- [ ] Top toolbar includes search, notifications, and user info
+- [ ] Use CSS Grid for data panels grid grid-cols-4
+- [ ] KPI cards use large font numbers to display key metrics
+- [ ] Chart areas use appropriate ratios aspect-video or aspect-square
+
+### Style drift check
+- [ ] Does not violate: Do not allow disproportionate sidebar-to-content ratios
+- [ ] Does not violate: Do not use inconsistent spacing between data panels
+- [ ] Does not violate: Do not ignore loading states and empty states
+- [ ] Does not violate: Do not make all panels exactly the same size
+- [ ] Does not violate: Do not use excessive decorative elements that distract attention
+
+### Delivery check
+- [ ] Responsive layout holds on phone, tablet and desktop with no horizontal overflow
+- [ ] Every interactive element has a visible focus state, an accessible name and a reduced-motion path
+- [ ] Text contrast meets WCAG AA and colour alone never carries state
+- [ ] The result is still recognizable at a glance as Dashboard Layout
+
+## Absolute Bans (Match and Refuse)
+
+If any of the following patterns appear, it is a style violation — rewrite without exception.
+
+- allow disproportionate sidebar-to-content ratios
+- use inconsistent spacing between data panels
+- ignore loading states and empty states
+- make all panels exactly the same size
+- use excessive decorative elements that distract attention
+
+## Self-Check (Verify Before Shipping)
+
+If any item fails, the style has drifted — fix before shipping.
+
+- [ ] No purple-to-blue gradients
+- [ ] No overused fonts (Inter, Roboto, Geist, Fraunces, Plus Jakarta Sans)
+- [ ] No nested cards (cards inside cards)
+- [ ] No gray text on colored backgrounds
+- [ ] Body text contrast meets WCAG AA (>= 4.5:1)
+- [ ] No bounce or elastic easing curves
+- [ ] Animations have a prefers-reduced-motion fallback
+- [ ] Body text line length capped at 65-75 characters
+- [ ] No side-stripe accent borders (border-left/right > 1px)
+- [ ] No gradient text (background-clip: text)
+- [ ] No glassmorphism used as the default surface treatment
+- [ ] No tiny uppercase tracked eyebrow labels above every section heading
+- [ ] do not allow disproportionate sidebar-to-content ratios
+- [ ] do not use inconsistent spacing between data panels
+- [ ] do not ignore loading states and empty states
+- [ ] do not make all panels exactly the same size
+- [ ] do not use excessive decorative elements that distract attention
