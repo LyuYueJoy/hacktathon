@@ -1,0 +1,147 @@
+/* =========================
+   Home Page
+========================= */
+
+.home-page {
+    width: 100%;
+}
+
+
+/* =========================
+   Statistics Cards
+========================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+
+    margin-bottom: 50px;
+}
+
+.stat-card {
+    border: 1px solid black;
+    padding: 20px;
+    min-height: 140px;
+}
+
+.stat-card p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.stat-card h2 {
+    margin: 25px 0 0;
+    font-size: 40px;
+    font-weight: normal;
+}
+
+
+/* =========================
+   Today's Tasks
+========================= */
+
+.tasks-section {
+    width: 100%;
+}
+
+.tasks-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    margin-bottom: 15px;
+}
+
+.tasks-header h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+
+/* =========================
+   Task Tabs
+========================= */
+
+.task-tabs {
+    display: flex;
+}
+
+.tab {
+    background: white;
+    color: black;
+
+    border: 1px solid black;
+    padding: 10px 20px;
+
+    cursor: pointer;
+}
+
+.tab + .tab {
+    border-left: none;
+}
+
+.tab.active {
+    background: black;
+    color: white;
+}
+
+.tab:hover {
+    background: #eeeeee;
+    color: black;
+}
+
+
+/* =========================
+   Task List
+========================= */
+
+.task-list {
+    border-top: 1px solid black;
+    padding-top: 20px;
+}
+
+.task-card {
+    display: flex;
+    justify-content: space-between;
+
+    border: 1px solid black;
+
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+
+/* Task text */
+
+.task-info h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.task-info p {
+    margin: 0;
+    color: #555;
+}
+
+
+/* Task time and priority */
+
+.task-meta {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 15px;
+
+    min-width: 120px;
+}
+
+.priority {
+    border: 1px solid black;
+
+    padding: 5px 10px;
+
+    font-size: 13px;
+}

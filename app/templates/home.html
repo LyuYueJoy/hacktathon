@@ -4,11 +4,93 @@
 Home
 {% endblock %}
 
+{% block styles %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/home.css') }}"
+>
+{% endblock %}
+
 
 {% block content %}
 
-<h1>Home</h1>
+<div class="home-page">
 
-<p>Welcome to our project.</p>
+    <section class="stats">
+
+        <div class="stat-card">
+            <p>Total Tasks</p>
+            <h2>10</h2>
+        </div>
+
+        <div class="stat-card">
+            <p>In Progress</p>
+            <h2>4</h2>
+        </div>
+
+        <div class="stat-card">
+            <p>Completed</p>
+            <h2>3</h2>
+        </div>
+
+    </section>
+
+
+    <section class="tasks-section">
+
+        <div class="tasks-header">
+
+            <h2>Today's Tasks</h2>
+
+            <div class="task-tabs">
+                <button class="tab active">My Tasks</button>
+                <button class="tab">All Tasks</button>
+            </div>
+
+        </div>
+
+
+        <div class="task-list">
+
+            <div class="task-card">
+
+                <div class="task-info">
+                    <h3>Finish homepage</h3>
+                    <p>
+                        Complete the homepage layout
+                        for the hackathon project.
+                    </p>
+                </div>
+
+                <div class="task-meta">
+                    <span>10:00 AM</span>
+                    <span class="priority">High</span>
+                </div>
+
+            </div>
+
+
+            <div class="task-card">
+
+                <div class="task-info">
+                    <h3>Team meeting</h3>
+                    <p>
+                        Discuss the next features
+                        with the team.
+                    </p>
+                </div>
+
+                <div class="task-meta">
+                    <span>2:00 PM</span>
+                    <span class="priority">Medium</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
 
 {% endblock %}
