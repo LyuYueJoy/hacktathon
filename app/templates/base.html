@@ -37,7 +37,7 @@
             </a>
             {% if not session.get('user_name') %}
             <a href="{{ url_for('auth.login') }}" class="collapsed-link {% if request.path == url_for('auth.login') %}active{% endif %}" aria-label="Login">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 19v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1"/><circle cx="10" cy="7" r="4"/><path d="M20 19v-1a4 4 0 0 0-3.09-3.86"/><path d="M16 4.5a4 4 0 0 1 0 7.4"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 19c1.4-3 4.1-4.5 8-4.5s6.6 1.5 8 4.5"/></svg>
             </a>
             {% endif %}
         </nav>
