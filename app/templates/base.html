@@ -22,7 +22,13 @@
 
 <div class="app-container">
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
+        <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Toggle navigation" aria-expanded="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
         <div class="brand">
             <div class="brand-mark">O</div>
             <div class="project-name">Our Project</div>
@@ -51,6 +57,20 @@
             </a>
             {% endif %}
 
+        </nav>
+
+        <nav class="collapsed-nav" aria-label="Compact navigation">
+            <a href="{{ url_for('home.home') }}" class="collapsed-link {% if request.path == url_for('home.home') %}active{% endif %}" aria-label="Home">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V18a2 2 0 0 1-2 2h-3v-6H9v6H6a2 2 0 0 1-2-2v-7.5z"/></svg>
+            </a>
+
+            <a href="{{ url_for('task.add_task') }}" class="collapsed-link {% if request.path == url_for('task.add_task') %}active{% endif %}" aria-label="Add a Task">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </a>
+
+            <a href="{{ url_for('auth.login') }}" class="collapsed-link {% if request.path == url_for('auth.login') %}active{% endif %}" aria-label="Login">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 19v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1"/><circle cx="10" cy="7" r="4"/><path d="M20 19v-1a4 4 0 0 0-3.09-3.86"/><path d="M16 4.5a4 4 0 0 1 0 7.4"/></svg>
+            </a>
         </nav>
 
         <div class="sidebar-footer">
