@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
 
-from app.storage import add_patient, add_task, get_users
+from app.storage import add_patient, add_task, delete_patient, delete_tasks_for_patient, get_patient, get_users, update_patient
 
 
 handover_bp = Blueprint("handover", __name__)
@@ -50,7 +50,7 @@ def new_handover():
             "status": "Pending",
             "handover": handover,
         }
-        add_patient(patient)
+        patient = add_patient(patient)
 
         details = (
             f"SITUATION\n{handover['situation']}\n{handover['current_status']}\n\n"
@@ -63,6 +63,7 @@ def new_handover():
             "patient_name": handover["patient"],
             "nurse_name": ", ".join(owners),
             "patient_owner": owners[0] if owners else "Nurse",
+            "patient_id": patient["id"],
             "description": details,
             "location": handover["room"],
             "notes": details,
@@ -75,3 +76,38 @@ def new_handover():
 
     nurses = get_users()
     return render_template("new_handover.html", nurses=nurses)
+
+
+@handover_bp.route("/patient/<patient_id>/edit", methods=["GET", "POST"])
+def edit_patient(patient_id):
+    patient = get_patient(patient_id)
+    if patient is None:
+        return redirect(url_for("home.home"))
+    if request.method == "POST":
+        update_patient(patient_id, {
+            "room": _text(request.form, "room"),
+            "patient_name": _text(request.form, "patient_name"),
+            "age": int(_text(request.form, "age") or 0),
+            "gender": _text(request.form, "gender"),
+            "hospital_id": _text(request.form, "hospital_id"),
+            "ward": _text(request.form, "ward"),
+            "diagnosis": _text(request.form, "diagnosis"),
+        })
+        return redirect(url_for("home.home"))
+    return render_template("edit_patient.html", patient=patient)
+
+
+@handover_bp.route("/patient/<patient_id>/status", methods=["POST"])
+def change_patient_status(patient_id):
+    status = request.form.get("status", "Pending")
+    if status not in {"Pending", "In Progress", "Completed"}:
+        status = "Pending"
+    update_patient(patient_id, {"status": status})
+    return redirect(url_for("home.home"))
+
+
+@handover_bp.route("/patient/<patient_id>/delete", methods=["POST"])
+def remove_patient(patient_id):
+    delete_patient(patient_id)
+    delete_tasks_for_patient(patient_id)
+    return redirect(url_for("home.home"))

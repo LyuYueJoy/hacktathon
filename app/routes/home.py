@@ -30,7 +30,7 @@ def home():
         current_user=current_user,
         patients=patients,
         my_patients=my_patients,
-        total_tasks=len(tasks),
-        in_progress_tasks=sum(task.get("status") == "in_progress" for task in tasks),
-        completed_tasks=sum(task.get("status") == "completed" for task in tasks),
+        total_tasks=len(my_patients),
+        in_progress_tasks=sum(str(patient.get("status", "Pending")).lower().replace(" ", "_") == "in_progress" for patient in my_patients),
+        completed_tasks=sum(str(patient.get("status", "Pending")).lower() == "completed" for patient in my_patients),
     )

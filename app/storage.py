@@ -43,13 +43,48 @@ def add_patient(patient):
     with _lock:
         patients = get_patients()
         patient = dict(patient)
-        patient["id"] = max((item.get("id", 0) for item in patients), default=0) + 1
+        numeric_ids = [
+            int(str(item.get("id", "")).split("-")[-1])
+            for item in patients
+            if str(item.get("id", "")).split("-")[-1].isdigit()
+        ]
+        patient["id"] = f"P-{max(numeric_ids, default=0) + 1:03d}"
         patients.append(patient)
         PATIENTS_FILE.parent.mkdir(parents=True, exist_ok=True)
         PATIENTS_FILE.write_text(
             json.dumps(patients, indent=2, ensure_ascii=False), encoding="utf-8"
         )
         return patient
+
+
+def get_patient(patient_id):
+    return next((patient for patient in get_patients() if str(patient.get("id")) == str(patient_id)), None)
+
+
+def update_patient(patient_id, changes):
+    patients = get_patients()
+    for patient in patients:
+        if str(patient.get("id")) == str(patient_id):
+            patient.update(changes)
+            PATIENTS_FILE.write_text(json.dumps(patients, indent=2, ensure_ascii=False), encoding="utf-8")
+            return patient
+    return None
+
+
+def delete_patient(patient_id):
+    patients = get_patients()
+    remaining = [patient for patient in patients if str(patient.get("id")) != str(patient_id)]
+    if len(remaining) == len(patients):
+        return False
+    PATIENTS_FILE.write_text(json.dumps(remaining, indent=2, ensure_ascii=False), encoding="utf-8")
+    return True
+
+
+def delete_tasks_for_patient(patient_id):
+    with _lock:
+        data = _read()
+        data["tasks"] = [task for task in data["tasks"] if str(task.get("patient_id")) != str(patient_id)]
+        _write(data)
 
 
 def find_user_by_email(email):

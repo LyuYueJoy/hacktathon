@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Edit Patient{% endblock %}
+{% block content %}
+<div class="home-page"><section class="tasks-section handover-form-card">
+    <div class="tasks-header"><h2>Edit Patient</h2></div>
+    <form method="POST" action="{{ url_for('handover.edit_patient', patient_id=patient.id) }}">
+        <div class="handover-fields-row">
+            <p><label>Room</label><input name="room" value="{{ patient.room }}" required></p>
+            <p><label>Patient name</label><input name="patient_name" value="{{ patient.patient_name }}" required></p>
+            <p><label>Age</label><input name="age" type="number" value="{{ patient.age }}" required></p>
+        </div>
+        <div class="handover-fields-row">
+            <p><label>Gender</label><input name="gender" value="{{ patient.gender }}"></p>
+            <p><label>Hospital ID / bed</label><input name="hospital_id" value="{{ patient.hospital_id }}"></p>
+            <p><label>Ward</label><input name="ward" value="{{ patient.ward }}"></p>
+        </div>
+        <p><label>Diagnosis</label><input name="diagnosis" value="{{ patient.diagnosis }}"></p>
+        <button type="submit">Save Changes</button>
+        <a href="{{ url_for('home.home') }}">Cancel</a>
+    </form>
+</section></div>
+{% endblock %}
