@@ -17,6 +17,25 @@
     "allergies": [
       "Penicillin"
     ],
+    "handover": {
+      "patient": "Jane Wilson",
+      "room": "Room 12",
+      "age": "67",
+      "gender": "Female",
+      "hospital_id": "HN-20481",
+      "nurse_role": "Registered Nurse",
+      "ward": "Medical Ward",
+      "situation": "Patient became dizzy after standing.",
+      "current_status": "Blood pressure dropped from 130/80 to 105/65.",
+      "diagnosis": "Post-operative recovery",
+      "admission_date": "2026-09-12",
+      "medical_history": "Hypertension. Penicillin allergy.",
+      "context": "Normally independent and alert.",
+      "assessment": "Increased fall risk after dizziness on mobilisation.",
+      "findings": "No new skin, line or drain concerns.",
+      "recommendation": "Assist when mobilising and monitor blood pressure.",
+      "timeline": "Repeat observations at 3:00 PM; doctor review by 5:00 PM."
+    },
     "status": "In Progress"
   },
   {
@@ -35,6 +54,25 @@
     "nurse_name": "Priya Shah",
     "diagnosis": "Community-acquired pneumonia",
     "allergies": [],
+    "handover": {
+      "patient": "Michael Chen",
+      "room": "Room 8",
+      "age": "54",
+      "gender": "Male",
+      "hospital_id": "HN-19742",
+      "nurse_role": "Registered Nurse",
+      "ward": "Medical Ward",
+      "situation": "Increasing shortness of breath during mobilisation.",
+      "current_status": "Temperature 38.1C; oxygen saturation 94% on room air.",
+      "diagnosis": "Community-acquired pneumonia",
+      "admission_date": "2026-09-20",
+      "medical_history": "Asthma. No known drug allergies.",
+      "context": "Usually independent with personal cares.",
+      "assessment": "Breathing remains stable at rest but worsens on exertion.",
+      "findings": "Productive cough; blood results pending.",
+      "recommendation": "Encourage fluids and escalate if oxygen saturation drops.",
+      "timeline": "Repeat observations at 4:00 PM; escalate by 5:00 PM if symptoms worsen."
+    },
     "status": "In Progress"
   },
   {
@@ -55,6 +93,25 @@
     "allergies": [
       "Latex"
     ],
+    "handover": {
+      "patient": "Aroha Thompson",
+      "room": "Room 21",
+      "age": "72",
+      "gender": "Female",
+      "hospital_id": "HN-22106",
+      "nurse_role": "Registered Nurse",
+      "ward": "Older Persons Health",
+      "situation": "Pain remains elevated after a fall at home.",
+      "current_status": "Pain 6/10; wrist splint in place; observations stable.",
+      "diagnosis": "Fall with wrist fracture",
+      "admission_date": "2026-09-18",
+      "medical_history": "Osteoarthritis. Latex allergy.",
+      "context": "Normally mobilises with a walking stick.",
+      "assessment": "Requires assistance with transfers because of pain.",
+      "findings": "Fingers warm with good movement and sensation.",
+      "recommendation": "Continue prescribed analgesia and assist with transfers.",
+      "timeline": "Review pain at 6:00 PM after the next analgesia dose."
+    },
     "status": "In Progress"
   },
   {
@@ -73,6 +130,25 @@
     "nurse_name": "Jordan Lee",
     "diagnosis": "Appendectomy recovery",
     "allergies": [],
+    "handover": {
+      "patient": "Liam Patel",
+      "room": "Room 4",
+      "age": "39",
+      "gender": "Male",
+      "hospital_id": "HN-18433",
+      "nurse_role": "Registered Nurse",
+      "ward": "Surgical Ward",
+      "situation": "Recovering well following appendectomy.",
+      "current_status": "Pain 2/10; tolerating fluids; observations stable.",
+      "diagnosis": "Appendectomy recovery",
+      "admission_date": "2026-09-22",
+      "medical_history": "No significant history or known allergies.",
+      "context": "Normally independent and active.",
+      "assessment": "On track for discharge planning.",
+      "findings": "Wound clean and dry; mobilising independently.",
+      "recommendation": "Continue routine observations and discharge education.",
+      "timeline": "Review for discharge at the 9:00 AM ward round."
+    },
     "status": "Completed"
   }
 ]

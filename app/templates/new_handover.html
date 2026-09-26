@@ -32,7 +32,7 @@
     </div>
     <div class="isbar-form-section"><h3>R – Recommendation</h3><p class="helper">State the action required and when it needs to happen.</p>
         <p><label>Action plan</label><textarea name="recommendation" rows="4" placeholder="What should the next nurse or clinician do?" required></textarea></p>
-        <p><label>Timeline / urgency</label><textarea name="timeline" rows="3" placeholder="When should checks or actions happen?"></textarea></p>
+        <p><label>Time / deadline</label><textarea name="timeline" rows="3" placeholder="e.g. 9:00 AM observations; 5:00 PM doctor review"></textarea></p>
     </div>
     <p><label for="urgency">Importance</label><input type="range" id="urgency" name="urgency" min="0" max="10" value="5" oninput="document.getElementById('urgencyVal').innerText = this.value"><span id="urgencyVal">5</span> <small>0 = routine · 10 = urgent</small></p>
     <button type="submit">Generate Handover</button>

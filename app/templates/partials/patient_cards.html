@@ -3,7 +3,9 @@
     <div class="patient-card-main">
         <h3>{{ patient.patient_name }}</h3>
         <p>{{ patient.room }} · {{ patient.age }} · {{ patient.gender }}</p>
-        <p>{{ patient.diagnosis }}</p>
+        {% set handover = patient.handover or {} %}
+        <p>{{ handover.recommendation or patient.diagnosis }}</p>
+        {% if handover.timeline %}<small>{{ handover.timeline }}</small>{% endif %}
     </div>
     <div class="patient-card-meta">
         <span>{{ patient.nurses | join(', ') if patient.nurses else patient.nurse_name }}</span>

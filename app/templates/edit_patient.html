@@ -1,22 +1,25 @@
 {% extends "base.html" %}
-{% block title %}Edit Patient{% endblock %}
+{% block title %}Edit Handover{% endblock %}
 {% block content %}
 <div class="home-page"><section class="tasks-section handover-form-card">
-    <div class="tasks-header"><h2>Edit Patient</h2></div>
-    <form method="POST" action="{{ url_for('handover.edit_patient', patient_id=patient.id) }}">
-        <div class="handover-fields-row">
-            <p><label>Room</label><input name="room" value="{{ patient.room }}" required></p>
-            <p><label>Patient name</label><input name="patient_name" value="{{ patient.patient_name }}" required></p>
-            <p><label>Age</label><input name="age" type="number" value="{{ patient.age }}" required></p>
-        </div>
-        <div class="handover-fields-row">
-            <p><label>Gender</label><input name="gender" value="{{ patient.gender }}"></p>
-            <p><label>Hospital ID / bed</label><input name="hospital_id" value="{{ patient.hospital_id }}"></p>
-            <p><label>Ward</label><input name="ward" value="{{ patient.ward }}"></p>
-        </div>
-        <p><label>Diagnosis</label><input name="diagnosis" value="{{ patient.diagnosis }}"></p>
-        <button type="submit">Save Changes</button>
-        <a href="{{ url_for('home.home') }}">Cancel</a>
-    </form>
+<div class="tasks-header"><div><p class="form-eyebrow">Nurse Handover</p><h2>Edit Handover</h2><p class="form-subtitle">Update the same ISBAR information used when creating this handover.</p></div></div>
+<form method="POST" action="{{ url_for('handover.edit_patient', patient_id=patient.id) }}">
+    {% set h = patient.handover or {} %}
+    <div class="handover-fields-row">
+        <p><label>Room</label><input name="room" value="{{ h.room or patient.room }}" required></p>
+        <p><label>Patient full name</label><input name="patient_name" value="{{ h.patient or patient.patient_name }}" required></p>
+        <p><label>Age</label><input name="age" type="number" min="0" max="120" value="{{ h.age or patient.age }}" required></p>
+    </div>
+    <div class="isbar-form-section"><h3>I – Identify / Introduction</h3><p class="helper">Identify yourself and the patient clearly.</p>
+        <div class="handover-fields-row"><p><label>Your role</label><input name="nurse_role" value="{{ h.nurse_role }}" required></p><p><label>Location / ward</label><input name="ward" value="{{ h.ward or patient.ward }}" required></p><p><label>Gender</label><input name="gender" value="{{ h.gender or patient.gender }}"></p></div>
+        <p><label>Hospital ID or bed number</label><input name="hospital_id" value="{{ h.hospital_id or patient.hospital_id }}"></p>
+        <p><label>Nurses responsible for this patient</label><select name="nurse_names" multiple size="4">{% for nurse in nurses %}<option value="{{ nurse.name }}" {% if nurse.name in (patient.nurses or []) %}selected{% endif %}>{{ nurse.name }} — {{ nurse.role }}</option>{% endfor %}</select><small>Hold Ctrl (Windows) or Cmd (Mac) to select multiple nurses.</small></p>
+    </div>
+    <div class="isbar-form-section"><h3>S – Situation</h3><p class="helper">Give a concise statement of what is happening right now.</p><p><label>The core issue</label><textarea name="situation" rows="3">{{ h.situation }}</textarea></p><p><label>Current status</label><textarea name="current_status" rows="3">{{ h.current_status }}</textarea></p></div>
+    <div class="isbar-form-section"><h3>B – Background</h3><p class="helper">Share only relevant medical and admission context.</p><div class="handover-fields-row"><p><label>Primary diagnosis</label><input name="diagnosis" value="{{ h.diagnosis or patient.diagnosis }}"></p><p><label>Date of admission</label><input name="admission_date" type="date" value="{{ h.admission_date }}"></p></div><p><label>Relevant medical history</label><textarea name="medical_history" rows="3">{{ h.medical_history }}</textarea></p><p><label>Essential context</label><textarea name="context" rows="3">{{ h.context }}</textarea></p></div>
+    <div class="isbar-form-section"><h3>A – Assessment</h3><p class="helper">Describe your professional evaluation and findings.</p><p><label>Clinical evaluation</label><textarea name="assessment" rows="4">{{ h.assessment }}</textarea></p><p><label>Findings</label><textarea name="findings" rows="4">{{ h.findings }}</textarea></p></div>
+    <div class="isbar-form-section"><h3>R – Recommendation</h3><p class="helper">State the action required and the exact time or deadline.</p><p><label>Action plan</label><textarea name="recommendation" rows="4">{{ h.recommendation }}</textarea></p><p><label>Time / deadline</label><textarea name="timeline" rows="3" placeholder="e.g. 9:00 AM observations; 5:00 PM doctor review">{{ h.timeline }}</textarea></p></div>
+    <button type="submit">Save Changes</button> <a href="{{ url_for('home.home') }}">Cancel</a>
+</form>
 </section></div>
 {% endblock %}

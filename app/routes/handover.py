@@ -84,6 +84,20 @@ def edit_patient(patient_id):
     if patient is None:
         return redirect(url_for("home.home"))
     if request.method == "POST":
+        owners = request.form.getlist("nurse_names")
+        existing_handover = patient.get("handover", {})
+        handover_fields = [
+            "room", "patient", "age", "gender", "hospital_id", "nurse_role", "ward",
+            "situation", "current_status", "diagnosis", "admission_date", "medical_history",
+            "context", "assessment", "findings", "recommendation", "timeline",
+        ]
+        handover = dict(existing_handover)
+        for field in handover_fields:
+            if field == "patient":
+                handover[field] = _text(request.form, "patient_name")
+            else:
+                handover[field] = _text(request.form, field)
+
         update_patient(patient_id, {
             "room": _text(request.form, "room"),
             "patient_name": _text(request.form, "patient_name"),
@@ -92,9 +106,12 @@ def edit_patient(patient_id):
             "hospital_id": _text(request.form, "hospital_id"),
             "ward": _text(request.form, "ward"),
             "diagnosis": _text(request.form, "diagnosis"),
+            "nurses": owners or patient.get("nurses", []),
+            "nurse_name": ", ".join(owners or patient.get("nurses", [])),
+            "handover": handover,
         })
         return redirect(url_for("home.home"))
-    return render_template("edit_patient.html", patient=patient)
+    return render_template("edit_patient.html", patient=patient, nurses=get_users())
 
 
 @handover_bp.route("/patient/<patient_id>/status", methods=["POST"])
