@@ -4,7 +4,7 @@ from flask import Flask
 def create_app():
 
     app = Flask(__name__)
-    app.secret_key = "hackathon-secret-key"  # fine for a demo, don't reuse for anything real
+    app.secret_key = "hackathon-secret-key"
 
     # Home
     from app.routes.home import home_bp
@@ -17,5 +17,9 @@ def create_app():
     # Auth
     from app.routes.auth import auth_bp
     app.register_blueprint(auth_bp)
+
+    # Chat
+    from app.routes.chat import chat_bp
+    app.register_blueprint(chat_bp)
 
     return app

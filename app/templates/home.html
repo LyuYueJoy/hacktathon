@@ -43,91 +43,120 @@ Home
             <h2>Today's Tasks</h2>
 
             <div class="task-tabs">
-                <button class="tab active" type="button" data-tab="my">My Tasks</button>
-                <button class="tab" type="button" data-tab="unassigned">Unassigned Tasks</button>
+                <button class="tab active">My Tasks</button>
+                <button class="tab">All Tasks</button>
             </div>
 
         </div>
 
-        <div class="tab-panel active" data-panel="my">
-            <div class="task-list">
-                {% for task in my_tasks %}
-                {% set urgency_num = task.urgency | int %}
-                <div class="task-card">
 
-                    <div class="task-info">
-                        <h3>{{ task.name }}</h3>
-                        <p>{{ task.description }}</p>
-                    </div>
+        <div class="task-list">
 
-                    <div class="task-meta">
-                        <span>{{ task.location }}</span>
-                        {% if urgency_num >= 7 %}
-                            <span class="priority high">High</span>
-                        {% elif urgency_num >= 4 %}
-                            <span class="priority medium">Medium</span>
-                        {% else %}
-                            <span class="priority low">Low</span>
-                        {% endif %}
-                    </div>
+            {% for task in tasks %}
+            {% set urgency_num = task.urgency | int %}
+            <div class="task-card">
 
+                <div class="task-info">
+                    <h3>{{ task.name }}</h3>
+                    <p>{{ task.description }}</p>
                 </div>
-                {% else %}
-                <p>No tasks assigned to {{ current_user }} yet.</p>
-                {% endfor %}
-            </div>
-        </div>
 
-        <div class="tab-panel" data-panel="unassigned">
-            <div class="task-list">
-                {% for task in unassigned_tasks %}
-                {% set urgency_num = task.urgency | int %}
-                <div class="task-card">
-
-                    <div class="task-info">
-                        <h3>{{ task.name }}</h3>
-                        <p>{{ task.description }}</p>
-                    </div>
-
-                    <div class="task-meta">
-                        <span>{{ task.location }}</span>
-                        {% if urgency_num >= 7 %}
-                            <span class="priority high">High</span>
-                        {% elif urgency_num >= 4 %}
-                            <span class="priority medium">Medium</span>
-                        {% else %}
-                            <span class="priority low">Low</span>
-                        {% endif %}
-                    </div>
-
+                <div class="task-meta">
+                    <span>{{ task.location }}</span>
+                    {% if urgency_num >= 7 %}
+                        <span class="priority high">High</span>
+                    {% elif urgency_num >= 4 %}
+                        <span class="priority medium">Medium</span>
+                    {% else %}
+                        <span class="priority low">Low</span>
+                    {% endif %}
                 </div>
-                {% else %}
-                <p>No unassigned tasks.</p>
-                {% endfor %}
+
             </div>
+            {% else %}
+            <p>No tasks yet.</p>
+            {% endfor %}
+
         </div>
 
     </section>
 
 </div>
 
+<!-- Chat overlay: floats above the page, doesn't shift layout -->
+<div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+        <span>Team Chat</span>
+    </div>
+
+    <div class="chat-messages" id="chatMessages"></div>
+
+    <form id="chatForm" class="chat-form">
+        <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off" required>
+        <button type="submit">Send</button>
+    </form>
+</div>
+
+<button id="chatToggleBtn" class="chat-toggle-btn">💬</button>
+
 <script>
-    const tabs = document.querySelectorAll('.tab');
-    const panels = document.querySelectorAll('.tab-panel');
+const chatPanel = document.getElementById("chatPanel");
+const chatToggleBtn = document.getElementById("chatToggleBtn");
+const chatMessages = document.getElementById("chatMessages");
+const chatForm = document.getElementById("chatForm");
+const chatInput = document.getElementById("chatInput");
 
-    tabs.forEach((tab) => {
-        tab.addEventListener('click', () => {
-            const selectedTab = tab.dataset.tab;
+let chatOpen = false;
+let pollTimer = null;
 
-            tabs.forEach((button) => {
-                button.classList.toggle('active', button === tab);
-            });
+chatToggleBtn.addEventListener("click", function () {
+    chatOpen = !chatOpen;
 
-            panels.forEach((panel) => {
-                panel.classList.toggle('active', panel.dataset.panel === selectedTab);
-            });
-        });
+    if (chatOpen) {
+        chatPanel.classList.add("open");
+        fetchMessages();
+        pollTimer = setInterval(fetchMessages, 3000);
+    } else {
+        chatPanel.classList.remove("open");
+        clearInterval(pollTimer);
+    }
+});
+
+function renderMessages(messages) {
+    chatMessages.innerHTML = "";
+    messages.forEach(function (msg) {
+        const div = document.createElement("div");
+        div.classList.add("chat-message");
+        div.innerHTML = "<strong>" + msg.user + "</strong> <span class='chat-time'>" + msg.time + "</span><p>" + msg.text + "</p>";
+        chatMessages.appendChild(div);
     });
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function fetchMessages() {
+    fetch("{{ url_for('chat.get_messages') }}")
+        .then(function (res) { return res.json(); })
+        .then(renderMessages);
+}
+
+chatForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const text = chatInput.value.trim();
+    if (!text) return;
+
+    const formData = new FormData();
+    formData.append("text", text);
+
+    fetch("{{ url_for('chat.send_message') }}", {
+        method: "POST",
+        body: formData,
+    })
+        .then(function (res) { return res.json(); })
+        .then(function (messages) {
+            renderMessages(messages);
+            chatInput.value = "";
+        });
+});
 </script>
 
 {% endblock %}
