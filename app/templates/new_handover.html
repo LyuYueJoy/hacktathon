@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}New Handover · Nurse Handover{% endblock %}
+{% block content %}
+<section class="page-intro form-intro">
+    <p class="eyebrow">New handover</p>
+    <h1>Pass on what matters</h1>
+    <p class="intro-copy">Capture the changes, risks and follow-ups for the next nurse.</p>
+</section>
+
+<form class="handover-form" method="POST" action="{{ url_for('handover.new_handover') }}">
+    <div class="form-row">
+        <label>Room<input name="room" placeholder="Room 12" required></label>
+        <label>Patient<input name="patient" placeholder="Jane" required></label>
+        <label>Age<input name="age" type="number" min="0" max="120" placeholder="67" required></label>
+    </div>
+
+    <div class="isbar-section">
+        <div class="isbar-heading"><strong>I</strong><div><h2>Identify / Introduction</h2><p>Introduce yourself and identify the patient clearly.</p></div></div>
+        <div class="form-row">
+            <label>Your name<input name="nurse_name" placeholder="Alex Morgan" required></label>
+            <label>Your role<input name="nurse_role" placeholder="Registered Nurse" required></label>
+            <label>Ward / location<input name="ward" placeholder="Medical Ward" required></label>
+        </div>
+        <div class="form-row">
+            <label>Patient gender<input name="gender" placeholder="Female / Male / Other"></label>
+            <label>Hospital ID<input name="hospital_id" placeholder="HN-20481"></label>
+        </div>
+    </div>
+
+    <div class="isbar-section">
+        <div class="isbar-heading"><strong>S</strong><div><h2>Situation</h2><p>State what is happening right now and the current acute changes.</p></div></div>
+        <label>The core issue<textarea name="situation" rows="3" placeholder="What is happening right now?" required></textarea></label>
+        <label>Current status<textarea name="current_status" rows="4" placeholder="Symptoms, vital signs or sudden changes"></textarea></label>
+    </div>
+
+    <div class="isbar-section">
+        <div class="isbar-heading"><strong>B</strong><div><h2>Background</h2><p>Share only the relevant medical and admission context.</p></div></div>
+        <div class="form-row"><label>Primary diagnosis<input name="diagnosis" placeholder="Post-operative recovery"></label><label>Date of admission<input name="admission_date" type="date"></label></div>
+        <label>Relevant medical history<textarea name="medical_history" rows="3" placeholder="Relevant conditions, allergies or treatment history"></textarea></label>
+        <label>Essential context<textarea name="context" rows="3" placeholder="Only what the next nurse needs to know"></textarea></label>
+    </div>
+
+    <div class="isbar-section">
+        <div class="isbar-heading"><strong>A</strong><div><h2>Assessment</h2><p>Describe your professional evaluation and important findings.</p></div></div>
+        <label>Clinical evaluation<textarea name="assessment" rows="4" placeholder="Your assessment of the patient's current state" required></textarea></label>
+        <label>Findings<textarea name="findings" rows="4" placeholder="Tests, pain, skin, lines, drains or other concerns"></textarea></label>
+    </div>
+
+    <div class="isbar-section">
+        <div class="isbar-heading"><strong>R</strong><div><h2>Recommendation</h2><p>State the action required and when it needs to happen.</p></div></div>
+        <label>Action plan<textarea name="recommendation" rows="4" placeholder="What should the receiving nurse or clinician do next?" required></textarea></label>
+        <label>Timeline / urgency<textarea name="timeline" rows="3" placeholder="When should checks or actions happen?"></textarea></label>
+    </div>
+
+    <button class="primary-button" type="submit">Generate Handover</button>
+</form>
+{% endblock %}

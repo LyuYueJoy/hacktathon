@@ -1,115 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>{% block title %}Task Manager{% endblock %}</title>
-
-    <!-- Shared CSS -->
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css') }}"
-    >
-
-    <!-- Page-specific CSS -->
-    {% block styles %}
-    {% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Nurse Handover{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/handover.css') }}">
+    {% block styles %}{% endblock %}
 </head>
-
 <body>
-
-<div class="app-container">
-
-    <aside class="sidebar" id="sidebar">
-        <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Toggle navigation" aria-expanded="true">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
-        <div class="brand">
-            <div class="brand-mark">O</div>
-            <div class="project-name">Our Project</div>
-        </div>
-
-        <nav class="nav-menu" aria-label="Main navigation">
-            <a href="{{ url_for('home.home') }}" class="nav-link {% if request.path == url_for('home.home') %}active{% endif %}">
-                Home
-            </a>
-
-            <a href="{{ url_for('task.add_task') }}" class="nav-link {% if request.path == url_for('task.add_task') %}active{% endif %}">
-                Add a Task
-            </a>
-
-            {% if session.get('user_name') %}
-            <a href="{{ url_for('auth.logout') }}" class="nav-link">
-                Logout
-            </a>
-            {% else %}
-            <a href="{{ url_for('auth.register') }}" class="nav-link {% if request.path == url_for('auth.register') %}active{% endif %}">
-                Register
-            </a>
-
-            <a href="{{ url_for('auth.login') }}" class="nav-link {% if request.path == url_for('auth.login') %}active{% endif %}">
-                Login
-            </a>
-            {% endif %}
-
-        </nav>
-
-        <nav class="collapsed-nav" aria-label="Compact navigation">
-            <a href="{{ url_for('home.home') }}" class="collapsed-link {% if request.path == url_for('home.home') %}active{% endif %}" aria-label="Home">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V18a2 2 0 0 1-2 2h-3v-6H9v6H6a2 2 0 0 1-2-2v-7.5z"/></svg>
-            </a>
-
-            <a href="{{ url_for('task.add_task') }}" class="collapsed-link {% if request.path == url_for('task.add_task') %}active{% endif %}" aria-label="Add a Task">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-            </a>
-
-            <a href="{{ url_for('auth.login') }}" class="collapsed-link {% if request.path == url_for('auth.login') %}active{% endif %}" aria-label="Login">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 19v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1"/><circle cx="10" cy="7" r="4"/><path d="M20 19v-1a4 4 0 0 0-3.09-3.86"/><path d="M16 4.5a4 4 0 0 1 0 7.4"/></svg>
-            </a>
-        </nav>
-
-        <div class="sidebar-footer">
-            <div class="user-pill">
-                <span class="user-avatar">{{ session.get('user_name', 'Guest')[:2] | upper }}</span>
-                <span>{{ session.get('user_name', 'Guest') }}</span>
-            </div>
-        </div>
-    </aside>
-
-    <div class="main-shell">
-        <header class="topbar">
-            <div class="search-wrap">
-                <span class="search-icon">⌕</span>
-                <input type="search" placeholder="Search tasks" aria-label="Search tasks">
-            </div>
-
-            <div class="topbar-actions">
-                <button class="icon-button" type="button" aria-label="Notifications">🔔</button>
-
-                <div class="user-profile">
-                    <span class="user-avatar">{{ session.get('user_name', 'Guest')[:2] | upper }}</span>
-                    <div>
-                        <strong>{{ session.get('user_name', 'Guest') }}</strong>
-                        <small>{{ session.get('user_role', 'Not signed in') }}</small>
-                    </div>
-                </div>
-            </div>
+    <div class="handover-shell">
+        <header class="site-header">
+            <a class="brand" href="{{ url_for('home.home') }}">Nurse Handover</a>
+            <nav aria-label="Main navigation">
+                <a class="nav-item {% if request.path == url_for('home.home') %}active{% endif %}" href="{{ url_for('home.home') }}">Home</a>
+                <a class="nav-item {% if request.path == url_for('handover.new_handover') %}active{% endif %}" href="{{ url_for('handover.new_handover') }}">New Handover</a>
+            </nav>
         </header>
-
-        <main class="main-content">
-            {% block content %}
-            {% endblock %}
-        </main>
+        <main class="page-content">{% block content %}{% endblock %}</main>
     </div>
-
-</div>
-
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
 </body>
 </html>

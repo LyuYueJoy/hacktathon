@@ -10,16 +10,7 @@ def create_app():
     from app.routes.home import home_bp
     app.register_blueprint(home_bp)
 
-    # Add Task
-    from app.routes.task import task_bp
-    app.register_blueprint(task_bp)
-
-    # Auth
-    from app.routes.auth import auth_bp
-    app.register_blueprint(auth_bp)
-
-    # Chat
-    from app.routes.chat import chat_bp
-    app.register_blueprint(chat_bp)
+    from app.routes.handover import handover_bp
+    app.register_blueprint(handover_bp)
 
     return app
