@@ -29,28 +29,21 @@
         </div>
 
         <nav class="nav-menu" aria-label="Main navigation">
-            <a href="{{ url_for('home.home') }}" class="nav-link active">
+            <a href="{{ url_for('home.home') }}" class="nav-link {% if request.path == url_for('home.home') %}active{% endif %}">
                 Home
             </a>
 
-
-            <a href="{{ url_for('task.add_task') }}" class="nav-link">
+            <a href="{{ url_for('task.add_task') }}" class="nav-link {% if request.path == url_for('task.add_task') %}active{% endif %}">
                 Add a Task
             </a>
 
-            {% if session.get('user_name') %}
-            <a href="{{ url_for('auth.logout') }}" class="nav-link">
-                Logout
-            </a>
-            {% else %}
             <a href="{{ url_for('auth.register') }}" class="nav-link">
                 Register
             </a>
 
-            <a href="{{ url_for('auth.login') }}" class="nav-link">
+            <a href="{{ url_for('auth.login') }}" class="nav-link {% if request.path == url_for('auth.login') %}active{% endif %}">
                 Login
             </a>
-            {% endif %}
 
         </nav>
 

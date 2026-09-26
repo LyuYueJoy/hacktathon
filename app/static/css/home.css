@@ -26,6 +26,7 @@
     flex-direction: column;
     justify-content: space-between;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: #ffffff;
 }
 
 .stat-card:hover {
@@ -78,7 +79,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: #eef2ff;
+    background: var(--accent-soft);
     padding: 6px;
     border-radius: 14px;
 }
@@ -96,7 +97,7 @@
 
 .tab.active {
     background: #fff;
-    color: var(--text-primary);
+    color: var(--sidebar-bg);
     box-shadow: var(--shadow-sm);
 }
 
@@ -125,6 +126,10 @@
     padding: 20px 22px;
     box-shadow: var(--shadow-sm);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.task-card:hover {
+    border-color: rgba(12, 129, 143, 0.25);
 }
 
 .task-card:hover {
