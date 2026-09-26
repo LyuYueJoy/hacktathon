@@ -37,13 +37,19 @@
                 Add a Task
             </a>
 
-            <a href="{{ url_for('auth.register') }}" class="nav-link">
+            {% if session.get('user_name') %}
+            <a href="{{ url_for('auth.logout') }}" class="nav-link">
+                Logout
+            </a>
+            {% else %}
+            <a href="{{ url_for('auth.register') }}" class="nav-link {% if request.path == url_for('auth.register') %}active{% endif %}">
                 Register
             </a>
 
             <a href="{{ url_for('auth.login') }}" class="nav-link {% if request.path == url_for('auth.login') %}active{% endif %}">
                 Login
             </a>
+            {% endif %}
 
         </nav>
 
