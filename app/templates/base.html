@@ -14,7 +14,19 @@
         <nav class="nav-menu" aria-label="Main navigation">
             <a href="{{ url_for('home.home') }}" class="nav-link {% if request.path == url_for('home.home') %}active{% endif %}">Home</a>
             <a href="{{ url_for('handover.new_handover') }}" class="nav-link {% if request.path == url_for('handover.new_handover') %}active{% endif %}">New Handover</a>
+            {% if session.get('user_name') %}
+            <a href="{{ url_for('auth.logout') }}" class="nav-link">Logout</a>
+            {% else %}
+            <a href="{{ url_for('auth.login') }}" class="nav-link {% if request.path == url_for('auth.login') %}active{% endif %}">Login</a>
+            <a href="{{ url_for('auth.register') }}" class="nav-link {% if request.path == url_for('auth.register') %}active{% endif %}">Register</a>
+            {% endif %}
         </nav>
+        <div class="sidebar-footer">
+            <div class="user-pill">
+                <span class="user-avatar">{{ session.get('user_name', 'Guest')[:2] | upper }}</span>
+                <span>{{ session.get('user_name', 'Guest') }}</span>
+            </div>
+        </div>
     </aside>
     <div class="main-shell">
         <header class="topbar"><div class="search-wrap"><span class="search-icon">⌕</span><input type="search" placeholder="Search handovers" aria-label="Search handovers"></div></header>
