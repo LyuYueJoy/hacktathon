@@ -15,6 +15,14 @@
         <input type="text" id="location" name="location" required>
     </p>
     <p>
+        <label for="assigned_to">Assign To</label><br>
+        <select id="assigned_to" name="assigned_to">
+            {% for assignee in assignees %}
+            <option value="{{ assignee }}">{{ assignee }}</option>
+            {% endfor %}
+        </select>
+    </p>
+    <p>
         <label for="notes">Additional Notes</label><br>
         <textarea id="notes" name="notes"></textarea>
     </p>

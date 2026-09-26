@@ -43,44 +43,91 @@ Home
             <h2>Today's Tasks</h2>
 
             <div class="task-tabs">
-                <button class="tab active">My Tasks</button>
-                <button class="tab">All Tasks</button>
+                <button class="tab active" type="button" data-tab="my">My Tasks</button>
+                <button class="tab" type="button" data-tab="unassigned">Unassigned Tasks</button>
             </div>
 
         </div>
 
+        <div class="tab-panel active" data-panel="my">
+            <div class="task-list">
+                {% for task in my_tasks %}
+                {% set urgency_num = task.urgency | int %}
+                <div class="task-card">
 
-        <div class="task-list">
+                    <div class="task-info">
+                        <h3>{{ task.name }}</h3>
+                        <p>{{ task.description }}</p>
+                    </div>
 
-            {% for task in tasks %}
-            {% set urgency_num = task.urgency | int %}
-            <div class="task-card">
+                    <div class="task-meta">
+                        <span>{{ task.location }}</span>
+                        {% if urgency_num >= 7 %}
+                            <span class="priority high">High</span>
+                        {% elif urgency_num >= 4 %}
+                            <span class="priority medium">Medium</span>
+                        {% else %}
+                            <span class="priority low">Low</span>
+                        {% endif %}
+                    </div>
 
-                <div class="task-info">
-                    <h3>{{ task.name }}</h3>
-                    <p>{{ task.description }}</p>
                 </div>
-
-                <div class="task-meta">
-                    <span>{{ task.location }}</span>
-                    {% if urgency_num >= 7 %}
-                        <span class="priority high">High</span>
-                    {% elif urgency_num >= 4 %}
-                        <span class="priority medium">Medium</span>
-                    {% else %}
-                        <span class="priority low">Low</span>
-                    {% endif %}
-                </div>
-
+                {% else %}
+                <p>No tasks assigned to {{ current_user }} yet.</p>
+                {% endfor %}
             </div>
-            {% else %}
-            <p>No tasks yet.</p>
-            {% endfor %}
+        </div>
 
+        <div class="tab-panel" data-panel="unassigned">
+            <div class="task-list">
+                {% for task in unassigned_tasks %}
+                {% set urgency_num = task.urgency | int %}
+                <div class="task-card">
+
+                    <div class="task-info">
+                        <h3>{{ task.name }}</h3>
+                        <p>{{ task.description }}</p>
+                    </div>
+
+                    <div class="task-meta">
+                        <span>{{ task.location }}</span>
+                        {% if urgency_num >= 7 %}
+                            <span class="priority high">High</span>
+                        {% elif urgency_num >= 4 %}
+                            <span class="priority medium">Medium</span>
+                        {% else %}
+                            <span class="priority low">Low</span>
+                        {% endif %}
+                    </div>
+
+                </div>
+                {% else %}
+                <p>No unassigned tasks.</p>
+                {% endfor %}
+            </div>
         </div>
 
     </section>
 
 </div>
+
+<script>
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+            const selectedTab = tab.dataset.tab;
+
+            tabs.forEach((button) => {
+                button.classList.toggle('active', button === tab);
+            });
+
+            panels.forEach((panel) => {
+                panel.classList.toggle('active', panel.dataset.panel === selectedTab);
+            });
+        });
+    });
+</script>
 
 {% endblock %}

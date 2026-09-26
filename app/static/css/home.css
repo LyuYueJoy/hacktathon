@@ -44,7 +44,7 @@
 
 .stat-card h2 {
     margin: 0;
-    font-size: clamp(1.6rem, 2vw, 2.3rem);
+    font-size: clamp(2.2rem, 3vw, 3rem);
     letter-spacing: -0.04em;
     line-height: 1.1;
 }
@@ -98,6 +98,14 @@
     background: #fff;
     color: var(--text-primary);
     box-shadow: var(--shadow-sm);
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
 }
 
 .task-list {
