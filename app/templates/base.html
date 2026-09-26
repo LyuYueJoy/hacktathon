@@ -37,19 +37,20 @@
                 Add a Task
             </a>
 
-            <a href="{{ url_for('auth.register') }}" class="nav-link {% if request.path == url_for('auth.register') %}active{% endif %}">
+            <a href="{{ url_for('auth.register') }}" class="nav-link">
                 Register
             </a>
 
             <a href="{{ url_for('auth.login') }}" class="nav-link {% if request.path == url_for('auth.login') %}active{% endif %}">
                 Login
             </a>
+
         </nav>
 
         <div class="sidebar-footer">
             <div class="user-pill">
-                <span class="user-avatar">JS</span>
-                <span>Jane Smith</span>
+                <span class="user-avatar">{{ session.get('user_name', 'Guest')[:2] | upper }}</span>
+                <span>{{ session.get('user_name', 'Guest') }}</span>
             </div>
         </div>
     </aside>
@@ -65,10 +66,10 @@
                 <button class="icon-button" type="button" aria-label="Notifications">🔔</button>
 
                 <div class="user-profile">
-                    <span class="user-avatar">JS</span>
+                    <span class="user-avatar">{{ session.get('user_name', 'Guest')[:2] | upper }}</span>
                     <div>
-                        <strong>Jane Smith</strong>
-                        <small>Product Lead</small>
+                        <strong>{{ session.get('user_name', 'Guest') }}</strong>
+                        <small>{{ session.get('user_role', 'Not signed in') }}</small>
                     </div>
                 </div>
             </div>

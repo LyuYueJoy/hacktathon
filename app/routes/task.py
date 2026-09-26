@@ -1,10 +1,7 @@
 from flask import Blueprint, render_template, request, session
+from app.storage import add_task as save_task, get_users
 
 task_bp = Blueprint("task", __name__)
-
-ASSIGNEES = ["Jane Smith", "John Doe", "Ava Johnson", "Anyone"]
-
-tasks = []
 
 @task_bp.route("/add-task", methods=["GET", "POST"])
 def add_task():
@@ -21,8 +18,8 @@ def add_task():
             "assigned_to": assigned_to,
             "added_by": session.get("user_name", "Unknown"),
         }
-        tasks.append(new_task)
-        print(tasks)
+        save_task(new_task)
         return render_template("task_added.html")
 
-    return render_template("add_task.html", assignees=ASSIGNEES)
+    assignees = [user["name"] for user in get_users()] + ["Anyone"]
+    return render_template("add_task.html", assignees=assignees)

@@ -6,6 +6,7 @@ __pycache__
 htmlcov
 venv
 *.db
+app/data/store.json
 *.egg-info
 venv/
 .venv/
