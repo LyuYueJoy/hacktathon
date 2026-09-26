@@ -64,18 +64,33 @@ Home
                     <div class="task-info">
                         <h3>{{ task.name }}</h3>
                         <p>{{ task.description }}</p>
+                        <small>Assigned to: {{ task.assigned_to or 'Anyone' }}</small>
                     </div>
 
                     <div class="task-meta">
                         <span>{{ task.location }}</span>
+                        <form method="POST" action="{{ url_for('task.change_status', task_id=task.id) }}">
+                            <label for="status-{{ task.id }}" class="sr-only">Task status</label>
+                            <select id="status-{{ task.id }}" name="status" onchange="this.form.submit()">
+                                <option value="pending" {% if task.status == 'pending' %}selected{% endif %}>Pending</option>
+                                <option value="in_progress" {% if task.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                                <option value="completed" {% if task.status == 'completed' %}selected{% endif %}>Completed</option>
+                            </select>
+                        </form>
                         {% if urgency_num >= 7 %}
                             <span class="priority high">High</span>
                         {% elif urgency_num >= 4 %}
                             <span class="priority medium">Medium</span>
                         {% else %}
                             <span class="priority low">Low</span>
-                        {% endif %}
+                    {% endif %}
+                    <div class="task-actions">
+                        <a href="{{ url_for('task.edit_task', task_id=task.id) }}">Edit</a>
+                        <form method="POST" action="{{ url_for('task.delete_task', task_id=task.id) }}" onsubmit="return confirm('Delete this task?');">
+                            <button type="submit">Delete</button>
+                        </form>
                     </div>
+                </div>
                 </div>
                 {% else %}
                 <p>No tasks yet.</p>

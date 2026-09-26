@@ -17,6 +17,7 @@ def home():
 
     return render_template(
         "home.html",
+        tasks=tasks,
         my_tasks=sorted_my_tasks,
         unassigned_tasks=sorted_unassigned_tasks,
         all_tasks=sorted_all_tasks,
