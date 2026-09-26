@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, session
 
 task_bp = Blueprint("task", __name__)
 
-# temporary in-memory storage — fine for a hackathon, no DB needed
 tasks = []
 
 @task_bp.route("/add-task", methods=["GET", "POST"])
@@ -14,9 +13,12 @@ def add_task():
             "location": request.form.get("location"),
             "notes": request.form.get("notes"),
             "urgency": request.form.get("urgency"),
+            "status": "pending",
+            "ward": session.get("user_ward"),
+            "added_by": session.get("user_name", "Unknown"),
         }
         tasks.append(new_task)
-        print(tasks)  # check your terminal to confirm it worked
-        return render_template("task_added.html")  # <-- changed: show confirmation page instead of redirecting
+        print(tasks)
+        return render_template("task_added.html")
 
     return render_template("add_task.html")

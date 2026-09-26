@@ -33,9 +33,19 @@
                 Home
             </a>
 
+
             <a href="{{ url_for('task.add_task') }}" class="nav-link">
                 Add a Task
             </a>
+
+            <a href="{{ url_for('auth.register') }}" class="nav-link">
+                Register
+            </a>
+
+            <a href="{{ url_for('auth.login') }}" class="nav-link">
+                Login
+            </a>
+
         </nav>
 
         <div class="sidebar-footer">
