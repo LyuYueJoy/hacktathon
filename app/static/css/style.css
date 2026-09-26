@@ -31,6 +31,41 @@ a {
     text-decoration: none;
 }
 
+.task-detail-card {
+    max-width: 720px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+    padding: 28px;
+}
+
+.task-detail-card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    letter-spacing: -0.04em;
+}
+
+.task-detail-card p {
+    margin: 12px 0;
+    line-height: 1.6;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+}
+
+.back-button:hover {
+    background: var(--accent-vibrant);
+}
+
 button,
 input,
 select,

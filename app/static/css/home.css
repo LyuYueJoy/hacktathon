@@ -164,11 +164,14 @@
 
 .task-card:hover {
     border-color: rgba(12, 129, 143, 0.25);
-}
-
-.task-card:hover {
     box-shadow: 0 6px 18px rgba(17, 24, 39, 0.08);
     transform: translateY(-1px);
+}
+
+.task-card-link {
+    display: block;
+    flex: 1;
+    color: inherit;
 }
 
 .task-info {

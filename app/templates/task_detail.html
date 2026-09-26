@@ -2,22 +2,24 @@
 {% block title %}Task Details{% endblock %}
 {% block content %}
 
-<h2>{{ task.name }}</h2>
+<div class="task-detail-card">
+    <h2>{{ task.name }}</h2>
 
-<p><strong>Description:</strong> {{ task.description }}</p>
-<p><strong>Location / Ward:</strong> {{ task.location }}</p>
-<p><strong>Urgency:</strong> {{ task.urgency }}</p>
+    <p><strong>Status:</strong> {{ task.status|replace('_', ' ')|title }}</p>
+    <p><strong>Description:</strong> {{ task.description }}</p>
+    <p><strong>Assigned to:</strong> {{ task.assigned_to or 'Anyone' }}</p>
+    <p><strong>Location / Ward:</strong> {{ task.location }}</p>
+    <p><strong>Urgency:</strong> {{ task.urgency }}</p>
 
-{% if task.notes %}
-<p><strong>Additional Notes:</strong> {{ task.notes }}</p>
-{% endif %}
+    {% if task.notes %}
+    <p><strong>Additional Notes:</strong> {{ task.notes }}</p>
+    {% endif %}
 
-{% if task.added_by %}
-<p><strong>Added by:</strong> {{ task.added_by }}</p>
-{% endif %}
+    {% if task.added_by %}
+    <p><strong>Added by:</strong> {{ task.added_by }}</p>
+    {% endif %}
 
-<a href="{{ url_for('home.home') }}">
-    <button type="button">Back</button>
-</a>
+    <a class="back-button" href="{{ url_for('home.home') }}">Back to homepage</a>
+</div>
 
 {% endblock %}
