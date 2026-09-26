@@ -43,40 +43,64 @@ Home
             <h2>Today's Tasks</h2>
 
             <div class="task-tabs">
-                <button class="tab active">My Tasks</button>
-                <button class="tab">All Tasks</button>
+                <button class="tab active" type="button" data-tab="my">My Tasks</button>
+                <button class="tab" type="button" data-tab="all">All Tasks</button>
             </div>
 
         </div>
 
+        <div class="task-panel active" data-panel="my">
+            <div class="task-list">
+                {% for task in my_tasks %}
+                {% set urgency_num = task.urgency | int %}
+                <div class="task-card">
+                    <div class="task-info">
+                        <h3>{{ task.name }}</h3>
+                        <p>{{ task.description }}</p>
+                    </div>
 
-        <div class="task-list">
-
-            {% for task in tasks %}
-            {% set urgency_num = task.urgency | int %}
-            <div class="task-card">
-
-                <div class="task-info">
-                    <h3>{{ task.name }}</h3>
-                    <p>{{ task.description }}</p>
+                    <div class="task-meta">
+                        <span>{{ task.location }}</span>
+                        {% if urgency_num >= 7 %}
+                            <span class="priority high">High</span>
+                        {% elif urgency_num >= 4 %}
+                            <span class="priority medium">Medium</span>
+                        {% else %}
+                            <span class="priority low">Low</span>
+                        {% endif %}
+                    </div>
                 </div>
-
-                <div class="task-meta">
-                    <span>{{ task.location }}</span>
-                    {% if urgency_num >= 7 %}
-                        <span class="priority high">High</span>
-                    {% elif urgency_num >= 4 %}
-                        <span class="priority medium">Medium</span>
-                    {% else %}
-                        <span class="priority low">Low</span>
-                    {% endif %}
-                </div>
-
+                {% else %}
+                <p>No tasks yet.</p>
+                {% endfor %}
             </div>
-            {% else %}
-            <p>No tasks yet.</p>
-            {% endfor %}
+        </div>
 
+        <div class="task-panel" data-panel="all">
+            <div class="task-list">
+                {% for task in all_tasks %}
+                {% set urgency_num = task.urgency | int %}
+                <div class="task-card">
+                    <div class="task-info">
+                        <h3>{{ task.name }}</h3>
+                        <p>{{ task.description }}</p>
+                    </div>
+
+                    <div class="task-meta">
+                        <span>{{ task.location }}</span>
+                        {% if urgency_num >= 7 %}
+                            <span class="priority high">High</span>
+                        {% elif urgency_num >= 4 %}
+                            <span class="priority medium">Medium</span>
+                        {% else %}
+                            <span class="priority low">Low</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <p>No tasks yet.</p>
+                {% endfor %}
+            </div>
         </div>
 
     </section>
@@ -108,6 +132,23 @@ const chatInput = document.getElementById("chatInput");
 
 let chatOpen = false;
 let pollTimer = null;
+
+const taskTabs = document.querySelectorAll(".tab");
+const taskPanels = document.querySelectorAll(".task-panel");
+
+taskTabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+        const selectedTab = this.dataset.tab;
+
+        taskTabs.forEach(function (button) {
+            button.classList.toggle("active", button === tab);
+        });
+
+        taskPanels.forEach(function (panel) {
+            panel.classList.toggle("active", panel.dataset.panel === selectedTab);
+        });
+    });
+});
 
 chatToggleBtn.addEventListener("click", function () {
     chatOpen = !chatOpen;

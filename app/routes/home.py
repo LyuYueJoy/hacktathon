@@ -13,11 +13,13 @@ def home():
 
     sorted_my_tasks = sorted(my_tasks, key=lambda t: int(t["urgency"]), reverse=True)
     sorted_unassigned_tasks = sorted(unassigned_tasks, key=lambda t: int(t["urgency"]), reverse=True)
+    sorted_all_tasks = sorted(tasks, key=lambda t: int(t["urgency"]), reverse=True)
 
     return render_template(
         "home.html",
         my_tasks=sorted_my_tasks,
         unassigned_tasks=sorted_unassigned_tasks,
+        all_tasks=sorted_all_tasks,
         total_tasks=len(tasks),
         in_progress_tasks=sum(task.get("status") == "in_progress" for task in tasks),
         completed_tasks=sum(task.get("status") == "completed" for task in tasks),

@@ -84,6 +84,14 @@
     border-radius: 14px;
 }
 
+.task-panel {
+    display: none;
+}
+
+.task-panel.active {
+    display: block;
+}
+
 .tab {
     background: transparent;
     color: var(--text-secondary);
