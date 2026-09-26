@@ -124,6 +124,7 @@
 }
 
 .task-card {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -131,9 +132,34 @@
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 18px;
-    padding: 20px 22px;
+    padding: 20px 22px 20px 24px;
     box-shadow: var(--shadow-sm);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
+    overflow: hidden;
+}
+
+.task-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 15px;
+    background: var(--accent);
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+}
+
+.task-card.high::before {
+    background: var(--danger);
+}
+
+.task-card.medium::before {
+    background: var(--warning);
+}
+
+.task-card.low::before {
+    background: var(--success);
 }
 
 .task-card:hover {
@@ -147,6 +173,7 @@
 
 .task-info {
     flex: 1;
+    margin-left: 12px;
 }
 
 .task-info h3 {

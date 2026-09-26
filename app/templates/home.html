@@ -53,7 +53,14 @@ Home
             <div class="task-list">
                 {% for task in my_tasks %}
                 {% set urgency_num = task.urgency | int %}
-                <div class="task-card">
+                {% if urgency_num >= 7 %}
+                    {% set urgency_class = 'high' %}
+                {% elif urgency_num >= 4 %}
+                    {% set urgency_class = 'medium' %}
+                {% else %}
+                    {% set urgency_class = 'low' %}
+                {% endif %}
+                <div class="task-card {{ urgency_class }}">
                     <div class="task-info">
                         <h3>{{ task.name }}</h3>
                         <p>{{ task.description }}</p>
@@ -80,7 +87,14 @@ Home
             <div class="task-list">
                 {% for task in all_tasks %}
                 {% set urgency_num = task.urgency | int %}
-                <div class="task-card">
+                {% if urgency_num >= 7 %}
+                    {% set urgency_class = 'high' %}
+                {% elif urgency_num >= 4 %}
+                    {% set urgency_class = 'medium' %}
+                {% else %}
+                    {% set urgency_class = 'low' %}
+                {% endif %}
+                <div class="task-card {{ urgency_class }}">
                     <div class="task-info">
                         <h3>{{ task.name }}</h3>
                         <p>{{ task.description }}</p>
