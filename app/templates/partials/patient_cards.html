@@ -9,14 +9,6 @@
     </div>
     <div class="patient-card-meta">
         <span>{{ patient.nurses | join(', ') if patient.nurses else patient.nurse_name }}</span>
-        <form method="POST" action="{{ url_for('handover.change_patient_status', patient_id=patient.id) }}" class="status-form">
-            <label class="sr-only" for="patient-status-{{ patient.id }}">Handover status</label>
-            <select id="patient-status-{{ patient.id }}" name="status" onchange="this.form.submit()">
-                <option value="Pending" {% if patient.status == 'Pending' %}selected{% endif %}>Pending</option>
-                <option value="In Progress" {% if patient.status == 'In Progress' %}selected{% endif %}>In Progress</option>
-                <option value="Completed" {% if patient.status == 'Completed' %}selected{% endif %}>Completed</option>
-            </select>
-        </form>
         <div class="task-actions">
             <a href="{{ url_for('handover.edit_patient', patient_id=patient.id) }}">Edit</a>
             <form method="POST" action="{{ url_for('handover.remove_patient', patient_id=patient.id) }}" onsubmit="return confirm('Delete this patient and handover?');"><button type="submit">Delete</button></form>
