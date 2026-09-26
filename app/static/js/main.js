@@ -1,25 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
     const sidebar = document.getElementById("sidebar");
     const sidebarToggle = document.getElementById("sidebarToggle");
-    const collapsedLinks = document.querySelectorAll(".collapsed-link");
+    const navLinks = document.querySelectorAll(".nav-link, .collapsed-link");
 
     if (!sidebar || !sidebarToggle) {
         return;
     }
 
-    sidebar.classList.add("collapsed");
-    sidebarToggle.setAttribute("aria-expanded", "false");
+    const setCollapsed = (collapsed) => {
+        sidebar.classList.toggle("collapsed", collapsed);
+        sidebarToggle.setAttribute("aria-expanded", String(!collapsed));
+    };
+
+    setCollapsed(true);
 
     sidebarToggle.addEventListener("click", () => {
-        const isCollapsed = sidebar.classList.contains("collapsed");
-        sidebar.classList.toggle("collapsed", !isCollapsed);
-        sidebarToggle.setAttribute("aria-expanded", String(isCollapsed));
+        const shouldCollapse = !sidebar.classList.contains("collapsed");
+        setCollapsed(shouldCollapse);
     });
 
-    collapsedLinks.forEach((link) => {
+    navLinks.forEach((link) => {
         link.addEventListener("click", () => {
-            sidebar.classList.add("collapsed");
-            sidebarToggle.setAttribute("aria-expanded", "false");
+            setCollapsed(true);
         });
     });
 });

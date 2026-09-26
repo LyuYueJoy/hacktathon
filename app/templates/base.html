@@ -9,7 +9,13 @@
 </head>
 <body>
 <div class="app-container">
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
+        <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Toggle navigation" aria-expanded="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
         <div class="brand"><div class="brand-mark">N</div><div class="project-name">Nurse Handover</div></div>
         <nav class="nav-menu" aria-label="Main navigation">
             <a href="{{ url_for('home.home') }}" class="nav-link {% if request.path == url_for('home.home') %}active{% endif %}">Home</a>
@@ -21,6 +27,21 @@
             <a href="{{ url_for('auth.register') }}" class="nav-link {% if request.path == url_for('auth.register') %}active{% endif %}">Register</a>
             {% endif %}
         </nav>
+
+        <nav class="collapsed-nav" aria-label="Compact navigation">
+            <a href="{{ url_for('home.home') }}" class="collapsed-link {% if request.path == url_for('home.home') %}active{% endif %}" aria-label="Home">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V18a2 2 0 0 1-2 2h-3v-6H9v6H6a2 2 0 0 1-2-2v-7.5z"/></svg>
+            </a>
+            <a href="{{ url_for('handover.new_handover') }}" class="collapsed-link {% if request.path == url_for('handover.new_handover') %}active{% endif %}" aria-label="New Handover">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </a>
+            {% if not session.get('user_name') %}
+            <a href="{{ url_for('auth.login') }}" class="collapsed-link {% if request.path == url_for('auth.login') %}active{% endif %}" aria-label="Login">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 19v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1"/><circle cx="10" cy="7" r="4"/><path d="M20 19v-1a4 4 0 0 0-3.09-3.86"/><path d="M16 4.5a4 4 0 0 1 0 7.4"/></svg>
+            </a>
+            {% endif %}
+        </nav>
+
         <div class="sidebar-footer">
             <div class="user-pill">
                 <span class="user-avatar">{{ session.get('user_name', 'Guest')[:2] | upper }}</span>
@@ -33,5 +54,6 @@
         <main class="main-content">{% block content %}{% endblock %}</main>
     </div>
 </div>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
