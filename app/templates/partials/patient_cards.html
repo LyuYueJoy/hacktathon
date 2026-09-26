@@ -1,0 +1,15 @@
+{% for patient in panel_patients %}
+<article class="patient-card">
+    <div class="patient-card-main">
+        <h3>{{ patient.patient_name }}</h3>
+        <p>{{ patient.room }} · {{ patient.age }} · {{ patient.gender }}</p>
+        <p>{{ patient.diagnosis }}</p>
+    </div>
+    <div class="patient-card-meta">
+        <span>{{ patient.nurses | join(', ') if patient.nurses else patient.nurse_name }}</span>
+        <span class="patient-status">{{ patient.status }}</span>
+    </div>
+</article>
+{% else %}
+<p class="empty-patients">No patients in this view.</p>
+{% endfor %}

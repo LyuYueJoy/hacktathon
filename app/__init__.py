@@ -13,6 +13,9 @@ def create_app():
     from app.routes.handover import handover_bp
     app.register_blueprint(handover_bp)
 
+    from app.routes.task import task_bp
+    app.register_blueprint(task_bp)
+
     from app.routes.auth import auth_bp
     app.register_blueprint(auth_bp)
 

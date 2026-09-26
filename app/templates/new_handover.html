@@ -2,22 +2,41 @@
 {% block title %}New Handover{% endblock %}
 {% block content %}
 <div class="home-page">
-    <section class="tasks-section handover-form-card">
-        <div class="tasks-header"><div><p class="form-eyebrow">Nurse Handover</p><h2>New Handover</h2><p class="form-subtitle">Capture the changes, risks and follow-ups for the next nurse.</p></div></div>
-        <form method="POST" action="{{ url_for('handover.new_handover') }}">
-            <div class="handover-fields-row">
-                <p><label for="room">Room</label><input id="room" name="room" placeholder="Room 12" required></p>
-                <p><label for="patient">Patient</label><input id="patient" name="patient" placeholder="Jane" required></p>
-                <p><label for="age">Age</label><input id="age" name="age" type="number" min="0" max="120" placeholder="67" required></p>
-            </div>
-            <p><label for="changed">What changed this shift?</label><textarea id="changed" name="changed" rows="4" required></textarea></p>
-            <p><label for="watch_out">Watch out for</label><textarea id="watch_out" name="watch_out" rows="3"></textarea></p>
-            <p><label for="waiting_on">Waiting on</label><textarea id="waiting_on" name="waiting_on" rows="3"></textarea></p>
-            <p><label for="next_nurse">Next nurse should know</label><textarea id="next_nurse" name="next_nurse" rows="4" required></textarea></p>
-            <p><label for="previous_notes">Notes from previous shift</label><textarea id="previous_notes" name="previous_notes" rows="3"></textarea></p>
-            <p><label for="urgency">Importance</label><input type="range" id="urgency" name="urgency" min="0" max="10" value="5" oninput="document.getElementById('urgencyVal').innerText = this.value"><span id="urgencyVal">5</span> <small>0 = routine · 10 = urgent</small></p>
-            <button type="submit">Generate Handover</button>
-        </form>
-    </section>
+<section class="tasks-section handover-form-card">
+<div class="tasks-header"><div><p class="form-eyebrow">Nurse Handover</p><h2>New Handover</h2><p class="form-subtitle">Capture the changes, risks and follow-ups for the next nurse.</p></div></div>
+<form method="POST" action="{{ url_for('handover.new_handover') }}">
+    <div class="handover-fields-row">
+        <p><label for="room">Room</label><input id="room" name="room" placeholder="Room 12" required></p>
+        <p><label for="patient">Patient full name</label><input id="patient" name="patient" placeholder="Jane Wilson" required></p>
+        <p><label for="age">Age</label><input id="age" name="age" type="number" min="0" max="120" placeholder="67" required></p>
+    </div>
+
+    <div class="isbar-form-section"><h3>I – Identify / Introduction</h3><p class="helper">Identify yourself and the patient clearly.</p>
+        <div class="handover-fields-row"><p><label>Your role</label><input name="nurse_role" placeholder="Registered Nurse" required></p><p><label>Location / ward</label><input name="ward" placeholder="Medical Ward" required></p><p><label>Gender</label><input name="gender" placeholder="Female"></p></div>
+        <p><label>Hospital ID or bed number</label><input name="hospital_id" placeholder="HN-20481 / Bed 12"></p>
+        <p><label>Nurses responsible for this patient</label><select name="nurse_names" multiple size="4">{% for nurse in nurses %}<option value="{{ nurse.name }}" {% if session.get('user_name') == nurse.name %}selected{% endif %}>{{ nurse.name }} — {{ nurse.role }}</option>{% endfor %}</select><small>Hold Ctrl (Windows) or Cmd (Mac) to select multiple nurses.</small></p>
+    </div>
+
+    <div class="isbar-form-section"><h3>S – Situation</h3><p class="helper">Give a concise statement of what is happening right now.</p>
+        <p><label>The core issue</label><textarea name="situation" rows="3" placeholder="Patient became dizzy after standing." required></textarea></p>
+        <p><label>Current status</label><textarea name="current_status" rows="3" placeholder="Acute symptoms, vital signs or sudden changes"></textarea></p>
+    </div>
+    <div class="isbar-form-section"><h3>B – Background</h3><p class="helper">Share only relevant medical and admission context.</p>
+        <div class="handover-fields-row"><p><label>Primary diagnosis</label><input name="diagnosis" placeholder="Post-operative recovery"></p><p><label>Date of admission</label><input name="admission_date" type="date"></p></div>
+        <p><label>Relevant medical history</label><textarea name="medical_history" rows="3" placeholder="Conditions, allergies or treatment history"></textarea></p>
+        <p><label>Essential context</label><textarea name="context" rows="3" placeholder="Only what the next nurse needs to know"></textarea></p>
+    </div>
+    <div class="isbar-form-section"><h3>A – Assessment</h3><p class="helper">Describe your professional evaluation and findings.</p>
+        <p><label>Clinical evaluation</label><textarea name="assessment" rows="4" placeholder="Your assessment of the patient's current state" required></textarea></p>
+        <p><label>Findings</label><textarea name="findings" rows="4" placeholder="Tests, pain, skin, lines, drains or other concerns"></textarea></p>
+    </div>
+    <div class="isbar-form-section"><h3>R – Recommendation</h3><p class="helper">State the action required and when it needs to happen.</p>
+        <p><label>Action plan</label><textarea name="recommendation" rows="4" placeholder="What should the next nurse or clinician do?" required></textarea></p>
+        <p><label>Timeline / urgency</label><textarea name="timeline" rows="3" placeholder="When should checks or actions happen?"></textarea></p>
+    </div>
+    <p><label for="urgency">Importance</label><input type="range" id="urgency" name="urgency" min="0" max="10" value="5" oninput="document.getElementById('urgencyVal').innerText = this.value"><span id="urgencyVal">5</span> <small>0 = routine · 10 = urgent</small></p>
+    <button type="submit">Generate Handover</button>
+</form>
+</section>
 </div>
 {% endblock %}

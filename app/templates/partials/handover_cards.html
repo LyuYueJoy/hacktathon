@@ -1,0 +1,22 @@
+{% for task in panel_tasks %}
+{% set urgency_num = task.urgency | int %}
+<div class="task-card">
+    <div class="task-info"><h3>{{ task.patient_name or task.name }}</h3><p class="multiline-task">{{ task.detail or task.description }}</p></div>
+    <div class="task-meta">
+        <span class="nurse-name">{{ task.nurse_name or task.added_by or 'Nurse' }}</span>
+        <form method="POST" action="{{ url_for('task.change_status', task_id=task.id) }}" class="status-form">
+            <label class="sr-only" for="status-{{ task.id }}">Task status</label>
+            <select id="status-{{ task.id }}" name="status" onchange="this.form.submit()">
+                <option value="pending" {% if task.status == 'pending' %}selected{% endif %}>Pending</option>
+                <option value="in_progress" {% if task.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                <option value="completed" {% if task.status == 'completed' %}selected{% endif %}>Completed</option>
+            </select>
+        </form>
+        <span class="priority {% if urgency_num >= 7 %}high{% elif urgency_num >= 4 %}medium{% else %}low{% endif %}">Importance {{ urgency_num }}/10</span>
+        <div class="task-actions">
+            <a href="{{ url_for('task.edit_task', task_id=task.id) }}">Edit</a>
+            <form method="POST" action="{{ url_for('task.delete_task', task_id=task.id) }}" onsubmit="return confirm('Delete this handover?');"><button type="submit">Delete</button></form>
+        </div>
+    </div>
+</div>
+{% else %}<p>No handovers in this view.</p>{% endfor %}

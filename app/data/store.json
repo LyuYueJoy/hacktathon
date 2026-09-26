@@ -7,44 +7,23 @@
       "ward": "test user1",
       "email": "testuser1@gmail.com",
       "password": "scrypt:32768:8:1$8TDkVHaEsjae06eN$d543453d1202561cc3af88f17353d65c62e6a99b7e41016f29fa440467ab709c2d52e5520782418c4d9709b62bd8919ea898d7a846916ee793e167685a5a1e4a"
+    },
+    {
+      "id": 2,
+      "name": "Alex Morgan",
+      "role": "Registered Nurse",
+      "ward": "Medical Ward",
+      "email": "alex.morgan@example.com",
+      "password": "scrypt:32768:8:1$dlznIOZAjuZhKZof$387dc76c218db55c1103918d023b00a1e8d72c30d1054c08604f8d6a392d18d6a93364e6703b1a0024fc77ed1a589b3e2eb0f1a5cf6dfd7e9982424c27994fd8"
+    },
+    {
+      "id": 3,
+      "name": "Priya Shah",
+      "role": "Registered Nurse",
+      "ward": "Medical Ward",
+      "email": "priya.shah@example.com",
+      "password": "scrypt:32768:8:1$kKl6UahJexfZLG0o$53f6c0319f179c43de21dbdac3be27d07951bc3009a0eef3065738985df6050f6a9f23fa0f801f990079e361ad5993fe6b0e1912d43d29902c01d0d6009eeed5"
     }
   ],
-  "tasks": [
-    {
-      "name": "test1",
-      "description": "test1",
-      "location": "test1",
-      "notes": "test1",
-      "urgency": "7",
-      "status": "in_progress",
-      "ward": "test user1",
-      "assigned_to": "testuser1",
-      "added_by": "testuser1",
-      "id": 1
-    },
-    {
-      "name": "testuser1",
-      "description": "testuser1",
-      "location": "testuser1",
-      "notes": "testuser1",
-      "urgency": "5",
-      "status": "pending",
-      "ward": "test user1",
-      "assigned_to": "testuser1",
-      "added_by": "testuser1",
-      "id": 2
-    },
-    {
-      "name": "try 1",
-      "description": "try1",
-      "location": "l1",
-      "notes": "",
-      "urgency": "5",
-      "status": "pending",
-      "ward": "test user1",
-      "assigned_to": "testuser1",
-      "added_by": "testuser1",
-      "id": 3
-    }
-  ]
+  "tasks": []
 }

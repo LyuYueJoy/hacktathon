@@ -5,6 +5,7 @@ from pathlib import Path
 from threading import Lock
 
 DATA_FILE = Path(__file__).parent / "data" / "store.json"
+PATIENTS_FILE = Path(__file__).parent / "data" / "patients.json"
 _lock = Lock()
 _EMPTY_DATA = {"users": [], "tasks": []}
 
@@ -29,6 +30,26 @@ def _write(data):
 def get_users():
     with _lock:
         return _read()["users"]
+
+
+def get_patients():
+    if not PATIENTS_FILE.exists():
+        return []
+    with PATIENTS_FILE.open("r", encoding="utf-8") as file:
+        return json.load(file)
+
+
+def add_patient(patient):
+    with _lock:
+        patients = get_patients()
+        patient = dict(patient)
+        patient["id"] = max((item.get("id", 0) for item in patients), default=0) + 1
+        patients.append(patient)
+        PATIENTS_FILE.parent.mkdir(parents=True, exist_ok=True)
+        PATIENTS_FILE.write_text(
+            json.dumps(patients, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
+        return patient
 
 
 def find_user_by_email(email):

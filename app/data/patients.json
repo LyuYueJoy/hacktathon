@@ -1,0 +1,62 @@
+[
+  {
+    "id": "P-001",
+    "room": "Room 12",
+    "patient_name": "Jane Wilson",
+    "age": 67,
+    "gender": "Female",
+    "hospital_id": "HN-20481",
+    "owner": "testuser1",
+    "nurses": ["testuser1", "Alex Morgan"],
+    "ward": "Medical Ward",
+    "nurse_name": "Alex Morgan",
+    "diagnosis": "Post-operative recovery",
+    "allergies": ["Penicillin"],
+    "status": "In Progress"
+  },
+  {
+    "id": "P-002",
+    "room": "Room 8",
+    "patient_name": "Michael Chen",
+    "age": 54,
+    "gender": "Male",
+    "hospital_id": "HN-19742",
+    "owner": "testuser1",
+    "nurses": ["testuser1", "Priya Shah"],
+    "ward": "Medical Ward",
+    "nurse_name": "Priya Shah",
+    "diagnosis": "Community-acquired pneumonia",
+    "allergies": [],
+    "status": "Pending"
+  },
+  {
+    "id": "P-003",
+    "room": "Room 21",
+    "patient_name": "Aroha Thompson",
+    "age": 72,
+    "gender": "Female",
+    "hospital_id": "HN-22106",
+    "owner": "testuser1",
+    "nurses": ["testuser1", "Sam Taylor"],
+    "ward": "Older Persons Health",
+    "nurse_name": "Sam Taylor",
+    "diagnosis": "Fall with wrist fracture",
+    "allergies": ["Latex"],
+    "status": "In Progress"
+  },
+  {
+    "id": "P-004",
+    "room": "Room 4",
+    "patient_name": "Liam Patel",
+    "age": 39,
+    "gender": "Male",
+    "hospital_id": "HN-18433",
+    "owner": "testuser1",
+    "nurses": ["testuser1", "Jordan Lee"],
+    "ward": "Surgical Ward",
+    "nurse_name": "Jordan Lee",
+    "diagnosis": "Appendectomy recovery",
+    "allergies": [],
+    "status": "Completed"
+  }
+]
