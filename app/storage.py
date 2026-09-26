@@ -60,6 +60,11 @@ def get_tasks():
         return _read()["tasks"]
 
 
+def get_task(task_id):
+    with _lock:
+        return next((task for task in _read()["tasks"] if task.get("id") == task_id), None)
+
+
 def add_task(task):
     with _lock:
         data = _read()
@@ -68,3 +73,25 @@ def add_task(task):
         data["tasks"].append(task)
         _write(data)
         return task
+
+
+def update_task(task_id, changes):
+    with _lock:
+        data = _read()
+        for task in data["tasks"]:
+            if task.get("id") == task_id:
+                task.update(changes)
+                _write(data)
+                return task
+    return None
+
+
+def delete_task(task_id):
+    with _lock:
+        data = _read()
+        remaining = [task for task in data["tasks"] if task.get("id") != task_id]
+        if len(remaining) == len(data["tasks"]):
+            return False
+        data["tasks"] = remaining
+        _write(data)
+        return True

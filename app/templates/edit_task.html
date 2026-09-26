@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Edit Task{% endblock %}
+{% block content %}
+<h2>Edit Task</h2>
+<form method="POST" action="{{ url_for('task.edit_task', task_id=task.id) }}">
+    <p><label for="name">Name</label><br><input type="text" id="name" name="name" value="{{ task.name }}" required></p>
+    <p><label for="description">Description</label><br><textarea id="description" name="description" required>{{ task.description }}</textarea></p>
+    <p><label for="location">Location / Ward</label><br><input type="text" id="location" name="location" value="{{ task.location }}" required></p>
+    <p><label for="assigned_to">Assign To</label><br><select id="assigned_to" name="assigned_to">
+        {% for assignee in assignees %}<option value="{{ assignee }}" {% if assignee == task.assigned_to %}selected{% endif %}>{{ assignee }}</option>{% endfor %}
+    </select></p>
+    <p><label for="notes">Additional Notes</label><br><textarea id="notes" name="notes">{{ task.notes }}</textarea></p>
+    <p><label for="urgency">Urgency</label><br><input type="range" id="urgency" name="urgency" min="1" max="10" value="{{ task.urgency }}" oninput="document.getElementById('urgencyVal').innerText = this.value"><span id="urgencyVal">{{ task.urgency }}</span></p>
+    <button type="submit">Save Changes</button>
+    <a href="{{ url_for('home.home') }}">Cancel</a>
+</form>
+{% endblock %}

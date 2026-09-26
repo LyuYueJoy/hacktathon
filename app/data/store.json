@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "testuser1",
+      "role": "test user1",
+      "ward": "test user1",
+      "email": "testuser1@gmail.com",
+      "password": "scrypt:32768:8:1$8TDkVHaEsjae06eN$d543453d1202561cc3af88f17353d65c62e6a99b7e41016f29fa440467ab709c2d52e5520782418c4d9709b62bd8919ea898d7a846916ee793e167685a5a1e4a"
+    }
+  ],
+  "tasks": [
+    {
+      "name": "test1",
+      "description": "test1",
+      "location": "test1",
+      "notes": "test1",
+      "urgency": "7",
+      "status": "in_progress",
+      "ward": "test user1",
+      "assigned_to": "testuser1",
+      "added_by": "testuser1",
+      "id": 1
+    },
+    {
+      "name": "testuser1",
+      "description": "testuser1",
+      "location": "testuser1",
+      "notes": "testuser1",
+      "urgency": "5",
+      "status": "pending",
+      "ward": "test user1",
+      "assigned_to": "testuser1",
+      "added_by": "testuser1",
+      "id": 2
+    }
+  ]
+}
