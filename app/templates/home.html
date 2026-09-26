@@ -1,14 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Home · Nurse Handover{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">{% endblock %}
 {% block content %}
-<section class="page-intro"><p class="eyebrow">Today’s handover</p><h1>Handover summary</h1><p class="intro-copy">The key information the next nurse needs to start the shift safely.</p></section>
-<article class="handover-card">
-    <div class="handover-heading"><div><p class="card-kicker">HANDOVER — {{ handover.room }}</p><h2>Patient: {{ handover.patient }}, {{ handover.age }}</h2></div><span class="status-dot">Current shift</span></div>
-    <section class="isbar-summary identify"><div class="summary-letter">I</div><div><h3>Identify / Introduction</h3><p><strong>{{ handover.nurse_name }}</strong>, {{ handover.nurse_role }}, {{ handover.ward }}</p><p>Patient: {{ handover.patient }}, {{ handover.age }}, {{ handover.gender }} · ID {{ handover.hospital_id }}</p></div></section>
-    <section class="isbar-summary"><div class="summary-letter">S</div><div><h3>Situation</h3><h4>The core issue</h4><div class="multiline">{{ handover.situation }}</div><h4>Current status</h4><div class="multiline">{{ handover.current_status }}</div></div></section>
-    <section class="isbar-summary"><div class="summary-letter">B</div><div><h3>Background</h3><p><strong>Diagnosis:</strong> {{ handover.diagnosis }} · <strong>Admitted:</strong> {{ handover.admission_date }}</p><h4>Medical history</h4><div class="multiline">{{ handover.medical_history }}</div><h4>Context</h4><div class="multiline">{{ handover.context }}</div></div></section>
-    <section class="isbar-summary"><div class="summary-letter">A</div><div><h3>Assessment</h3><h4>Clinical evaluation</h4><div class="multiline">{{ handover.assessment }}</div><h4>Findings</h4><div class="multiline">{{ handover.findings }}</div></div></section>
-    <section class="isbar-summary recommendation"><div class="summary-letter">R</div><div><h3>Recommendation</h3><h4>Action plan</h4><div class="multiline">{{ handover.recommendation }}</div><h4>Timeline</h4><div class="multiline">{{ handover.timeline }}</div></div></section>
-</article>
-<a class="primary-button" href="{{ url_for('handover.new_handover') }}">Create another handover</a>
+<div class="home-page">
+    <section class="stats">
+        <div class="stat-card"><p>Total Handovers</p><h2>{{ total_tasks }}</h2></div>
+        <div class="stat-card"><p>In Progress</p><h2>{{ in_progress_tasks }}</h2></div>
+        <div class="stat-card"><p>Completed</p><h2>{{ completed_tasks }}</h2></div>
+    </section>
+    <section class="tasks-section">
+        <div class="tasks-header"><h2>Today's Handovers</h2><a class="new-handover-link" href="{{ url_for('handover.new_handover') }}">+ New Handover</a></div>
+        <div class="task-list">
+            {% for task in tasks %}
+            {% set urgency_num = task.urgency | int %}
+            <div class="task-card">
+                <div class="task-info"><h3>{{ task.name }}</h3><p class="multiline-task">{{ task.description }}</p></div>
+                <div class="task-meta"><span>{{ task.location }}</span><span class="priority {% if urgency_num >= 7 %}high{% elif urgency_num >= 4 %}medium{% else %}low{% endif %}">Importance {{ urgency_num }}/10</span></div>
+            </div>
+            {% else %}<p>No handovers yet. Create the first one.</p>{% endfor %}
+        </div>
+    </section>
+</div>
 {% endblock %}

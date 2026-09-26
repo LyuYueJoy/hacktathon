@@ -61,6 +61,17 @@
     border-radius: 22px;
 }
 
+.handover-form-card { padding: 24px 28px; }
+.form-eyebrow { margin: 0 0 6px; color: var(--text-secondary); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.form-subtitle { margin: 8px 0 0; color: var(--text-secondary); }
+.handover-form-card form { max-width: 820px; }
+.handover-form-card form p { margin: 0 0 18px; }
+.handover-form-card textarea { min-height: 78px; resize: vertical; }
+.handover-fields-row { display: grid; grid-template-columns: 1.2fr 1.2fr .6fr; gap: 16px; }
+.handover-form-card small { color: var(--text-secondary); }
+.new-handover-link { color: var(--accent); font-weight: 700; }
+.multiline-task { white-space: pre-line; }
+
 .tasks-header {
     display: flex;
     justify-content: space-between;
@@ -285,6 +296,8 @@
         flex-direction: column;
         align-items: flex-start;
     }
+
+    .handover-fields-row { grid-template-columns: 1fr; gap: 0; }
 }
 .chat-panel {
     position: fixed;

@@ -1,23 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Nurse Handover{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/handover.css') }}">
     {% block styles %}{% endblock %}
 </head>
 <body>
-    <div class="handover-shell">
-        <header class="site-header">
-            <a class="brand" href="{{ url_for('home.home') }}">Nurse Handover</a>
-            <nav aria-label="Main navigation">
-                <a class="nav-item {% if request.path == url_for('home.home') %}active{% endif %}" href="{{ url_for('home.home') }}">Home</a>
-                <a class="nav-item {% if request.path == url_for('handover.new_handover') %}active{% endif %}" href="{{ url_for('handover.new_handover') }}">New Handover</a>
-            </nav>
-        </header>
-        <main class="page-content">{% block content %}{% endblock %}</main>
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="brand"><div class="brand-mark">N</div><div class="project-name">Nurse Handover</div></div>
+        <nav class="nav-menu" aria-label="Main navigation">
+            <a href="{{ url_for('home.home') }}" class="nav-link {% if request.path == url_for('home.home') %}active{% endif %}">Home</a>
+            <a href="{{ url_for('handover.new_handover') }}" class="nav-link {% if request.path == url_for('handover.new_handover') %}active{% endif %}">New Handover</a>
+        </nav>
+    </aside>
+    <div class="main-shell">
+        <header class="topbar"><div class="search-wrap"><span class="search-icon">⌕</span><input type="search" placeholder="Search handovers" aria-label="Search handovers"></div></header>
+        <main class="main-content">{% block content %}{% endblock %}</main>
     </div>
+</div>
 </body>
 </html>
